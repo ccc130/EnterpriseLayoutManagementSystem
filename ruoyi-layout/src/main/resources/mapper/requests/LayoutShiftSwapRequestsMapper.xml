@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.layout.mapper.LayoutShiftSwapRequestsMapper">
+    
+    <resultMap type="LayoutShiftSwapRequests" id="LayoutShiftSwapRequestsResult">
+        <result property="id"    column="id"    />
+        <result property="requesterId"    column="requester_id"    />
+        <result property="targetId"    column="target_id"    />
+        <result property="model"    column="model"    />
+        <result property="requestedShiftId"    column="requested_shift_id"    />
+        <result property="swappedShiftId"    column="swapped_shift_id"    />
+        <result property="requestDate"    column="request_date"    />
+        <result property="status"    column="status"    />
+        <result property="reason"    column="reason"    />
+        <result property="approvedBy"    column="approved_by"    />
+        <result property="approvedAt"    column="approved_at"    />
+    </resultMap>
+
+    <sql id="selectLayoutShiftSwapRequestsVo">
+        select id, requester_id, target_id, model, requested_shift_id, swapped_shift_id, request_date, status, reason, approved_by, approved_at from layout_shift_swap_requests
+    </sql>
+
+    <select id="selectLayoutShiftSwapRequestsList" parameterType="LayoutShiftSwapRequests" resultMap="LayoutShiftSwapRequestsResult">
+        <include refid="selectLayoutShiftSwapRequestsVo"/>
+        <where>  
+            <if test="requesterId != null "> and requester_id = #{requesterId}</if>
+            <if test="targetId != null "> and target_id = #{targetId}</if>
+            <if test="model != null "> and model = #{model}</if>
+            <if test="requestedShiftId != null "> and requested_shift_id = #{requestedShiftId}</if>
+            <if test="swappedShiftId != null "> and swapped_shift_id = #{swappedShiftId}</if>
+            <if test="requestDate != null "> and request_date = #{requestDate}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="approvedBy != null "> and approved_by = #{approvedBy}</if>
+            <if test="approvedAt != null "> and approved_at = #{approvedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectLayoutShiftSwapRequestsById" parameterType="Long" resultMap="LayoutShiftSwapRequestsResult">
+        <include refid="selectLayoutShiftSwapRequestsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLayoutShiftSwapRequests" parameterType="LayoutShiftSwapRequests">
+        insert into layout_shift_swap_requests
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="requesterId != null">requester_id,</if>
+            <if test="targetId != null">target_id,</if>
+            <if test="model != null">model,</if>
+            <if test="requestedShiftId != null">requested_shift_id,</if>
+            <if test="swappedShiftId != null">swapped_shift_id,</if>
+            <if test="requestDate != null">request_date,</if>
+            <if test="status != null">status,</if>
+            <if test="reason != null">reason,</if>
+            <if test="approvedBy != null">approved_by,</if>
+            <if test="approvedAt != null">approved_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="requesterId != null">#{requesterId},</if>
+            <if test="targetId != null">#{targetId},</if>
+            <if test="model != null">#{model},</if>
+            <if test="requestedShiftId != null">#{requestedShiftId},</if>
+            <if test="swappedShiftId != null">#{swappedShiftId},</if>
+            <if test="requestDate != null">#{requestDate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="approvedBy != null">#{approvedBy},</if>
+            <if test="approvedAt != null">#{approvedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLayoutShiftSwapRequests" parameterType="LayoutShiftSwapRequests">
+        update layout_shift_swap_requests
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="requesterId != null">requester_id = #{requesterId},</if>
+            <if test="targetId != null">target_id = #{targetId},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="requestedShiftId != null">requested_shift_id = #{requestedShiftId},</if>
+            <if test="swappedShiftId != null">swapped_shift_id = #{swappedShiftId},</if>
+            <if test="requestDate != null">request_date = #{requestDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="approvedBy != null">approved_by = #{approvedBy},</if>
+            <if test="approvedAt != null">approved_at = #{approvedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLayoutShiftSwapRequestsById" parameterType="Long">
+        delete from layout_shift_swap_requests where id = #{id}
+    </delete>
+
+    <delete id="deleteLayoutShiftSwapRequestsByIds" parameterType="String">
+        delete from layout_shift_swap_requests where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.LayoutEmployeesMapper">
+    
+    <resultMap type="LayoutEmployees" id="LayoutEmployeesResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="picture"    column="picture"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="hireDate"    column="hire_date"    />
+        <result property="workHoursPerWeek"    column="work_hours_per_week"    />
+        <result property="maxConsecutiveDays"    column="max_consecutive_days"    />
+        <result property="weekendPreference"    column="weekend_preference"    />
+        <result property="skills"    column="skills"    />
+    </resultMap>
+
+    <sql id="selectLayoutEmployeesVo">
+        select id, user_id, picture, department_id, hire_date, work_hours_per_week, max_consecutive_days, weekend_preference, skills from layout_employees
+    </sql>
+
+    <select id="selectLayoutEmployeesList" parameterType="LayoutEmployees" resultMap="LayoutEmployeesResult">
+        <include refid="selectLayoutEmployeesVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="departmentId != null "> and department_id = #{departmentId}</if>
+            <if test="params.beginHireDate != null and params.beginHireDate != '' and params.endHireDate != null and params.endHireDate != ''"> and hire_date between #{params.beginHireDate} and #{params.endHireDate}</if>
+            <if test="params.beginWorkHoursPerWeek != null and params.beginWorkHoursPerWeek != '' and params.endWorkHoursPerWeek != null and params.endWorkHoursPerWeek != ''"> and work_hours_per_week between #{params.beginWorkHoursPerWeek} and #{params.endWorkHoursPerWeek}</if>
+            <if test="maxConsecutiveDays != null "> and max_consecutive_days &lt;= #{maxConsecutiveDays}</if>
+            <if test="weekendPreference != null  and weekendPreference != ''"> and weekend_preference = #{weekendPreference}</if>
+            <if test="skills != null  and skills != ''"> and skills = #{skills}</if>
+        </where>
+    </select>
+    
+    <select id="selectLayoutEmployeesById" parameterType="Long" resultMap="LayoutEmployeesResult">
+        <include refid="selectLayoutEmployeesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertLayoutEmployees" parameterType="LayoutEmployees" useGeneratedKeys="true" keyProperty="id">
+        insert into layout_employees
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="picture != null">picture,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="hireDate != null">hire_date,</if>
+            <if test="workHoursPerWeek != null">work_hours_per_week,</if>
+            <if test="maxConsecutiveDays != null">max_consecutive_days,</if>
+            <if test="weekendPreference != null">weekend_preference,</if>
+            <if test="skills != null">skills,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="hireDate != null">#{hireDate},</if>
+            <if test="workHoursPerWeek != null">#{workHoursPerWeek},</if>
+            <if test="maxConsecutiveDays != null">#{maxConsecutiveDays},</if>
+            <if test="weekendPreference != null">#{weekendPreference},</if>
+            <if test="skills != null">#{skills},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLayoutEmployees" parameterType="LayoutEmployees">
+        update layout_employees
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="hireDate != null">hire_date = #{hireDate},</if>
+            <if test="workHoursPerWeek != null">work_hours_per_week = #{workHoursPerWeek},</if>
+            <if test="maxConsecutiveDays != null">max_consecutive_days = #{maxConsecutiveDays},</if>
+            <if test="weekendPreference != null">weekend_preference = #{weekendPreference},</if>
+            <if test="skills != null">skills = #{skills},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLayoutEmployeesById" parameterType="Long">
+        delete from layout_employees where id = #{id}
+    </delete>
+
+    <delete id="deleteLayoutEmployeesByIds" parameterType="String">
+        delete from layout_employees where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.layout.mapper.LayoutNoticeMapper">
+    
+    <resultMap type="LayoutNotice" id="LayoutNoticeResult">
+        <result property="noticeId"    column="notice_id"    />
+        <result property="noticeTitle"    column="notice_title"    />
+        <result property="noticeType"    column="notice_type"    />
+        <result property="noticeContent"    column="notice_content"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="aims"    column="aims"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectLayoutNoticeVo">
+        select notice_id, notice_title, notice_type, notice_content, status, create_by, create_time, aims, remark from layout_notice
+    </sql>
+
+    <select id="selectLayoutNoticeList" parameterType="LayoutNotice" resultMap="LayoutNoticeResult">
+        <include refid="selectLayoutNoticeVo"/>
+        <where>  
+            <if test="noticeTitle != null  and noticeTitle != ''"> and notice_title = #{noticeTitle}</if>
+            <if test="noticeType != null  and noticeType != ''"> and notice_type = #{noticeType}</if>
+            <if test="noticeContent != null  and noticeContent != ''"> and notice_content = #{noticeContent}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="aims != null  and aims != ''"> and aims = #{aims}</if>
+        </where>
+    </select>
+    
+    <select id="selectLayoutNoticeByNoticeId" parameterType="Long" resultMap="LayoutNoticeResult">
+        <include refid="selectLayoutNoticeVo"/>
+        where notice_id = #{noticeId}
+    </select>
+
+    <insert id="insertLayoutNotice" parameterType="LayoutNotice" useGeneratedKeys="true" keyProperty="noticeId">
+        insert into layout_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">notice_title,</if>
+            <if test="noticeType != null and noticeType != ''">notice_type,</if>
+            <if test="noticeContent != null">notice_content,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="aims != null">aims,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">#{noticeTitle},</if>
+            <if test="noticeType != null and noticeType != ''">#{noticeType},</if>
+            <if test="noticeContent != null">#{noticeContent},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="aims != null">#{aims},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLayoutNotice" parameterType="LayoutNotice">
+        update layout_notice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="noticeTitle != null and noticeTitle != ''">notice_title = #{noticeTitle},</if>
+            <if test="noticeType != null and noticeType != ''">notice_type = #{noticeType},</if>
+            <if test="noticeContent != null">notice_content = #{noticeContent},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="aims != null">aims = #{aims},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where notice_id = #{noticeId}
+    </update>
+
+    <delete id="deleteLayoutNoticeByNoticeId" parameterType="Long">
+        delete from layout_notice where notice_id = #{noticeId}
+    </delete>
+
+    <delete id="deleteLayoutNoticeByNoticeIds" parameterType="String">
+        delete from layout_notice where notice_id in 
+        <foreach item="noticeId" collection="array" open="(" separator="," close=")">
+            #{noticeId}
+        </foreach>
+    </delete>
+</mapper>
