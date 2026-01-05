@@ -74,7 +74,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['scheduling:scheduling:edit', 'scheduling:scheduling:remove']"
+          v-hasPermi="['scheduling:scheduling:remove']"
         >修改</el-button>
       </el-col>
       <el-col  v-if="!visualMode":span="1.5">
@@ -133,7 +133,7 @@
       <el-table-column label="备注" align="center" prop="remarks" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['scheduling:scheduling:edit', 'scheduling:scheduling:remove']">修改</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['scheduling:scheduling:remove']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['scheduling:scheduling:remove']">删除</el-button>
         </template>
       </el-table-column>

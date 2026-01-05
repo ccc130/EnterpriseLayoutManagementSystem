@@ -87,12 +87,6 @@
                <dict-tag :options="sys_notice_status" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="来源" align="center" prop="source" width="100">
-            <template #default="scope">
-              <el-tag v-if="scope.row.source === 'system'">系统通知</el-tag>
-              <el-tag v-else type="success">个人通知</el-tag>
-            </template>
-         </el-table-column>
          <el-table-column label="创建者" align="center" prop="createBy" width="100" />
          <el-table-column label="创建时间" align="center" prop="createTime" width="100">
             <template #default="scope">
@@ -101,10 +95,8 @@
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
-              <el-button v-if="scope.row.source === 'system'" link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">修改</el-button>
-              <el-button v-if="scope.row.source === 'system'" link type="primary" icon="View" @click="handleView(scope.row)">查看</el-button>
-              <el-button v-if="scope.row.source === 'system'" link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']">删除</el-button>
-              <el-button v-else link type="primary" icon="View" @click="handleViewLayoutNotice(scope.row)">查看</el-button>
+               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">修改</el-button>
+               <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']" >删除</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -123,12 +115,12 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="公告标题" prop="noticeTitle">
-                     <el-input v-model="form.noticeTitle" :readonly="viewOnly" placeholder="请输入公告标题" />
+                     <el-input v-model="form.noticeTitle" placeholder="请输入公告标题" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="公告类型" prop="noticeType">
-                     <el-select v-model="form.noticeType" :disabled="viewOnly" placeholder="请选择">
+                     <el-select v-model="form.noticeType" placeholder="请选择">
                         <el-option
                            v-for="dict in sys_notice_type"
                            :key="dict.value"
@@ -140,7 +132,7 @@
                </el-col>
                <el-col :span="24">
                   <el-form-item label="状态">
-                     <el-radio-group v-model="form.status" :disabled="viewOnly">
+                     <el-radio-group v-model="form.status">
                         <el-radio
                            v-for="dict in sys_notice_status"
                            :key="dict.value"
@@ -151,76 +143,28 @@
                </el-col>
                <el-col :span="24">
                   <el-form-item label="内容">
-                    <editor v-model="form.noticeContent" :min-height="192" :readonly="viewOnly" />
+                    <editor v-model="form.noticeContent" :min-height="192"/>
                   </el-form-item>
                </el-col>
             </el-row>
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm" v-if="!viewOnly">确 定</el-button>
+               <el-button type="primary" @click="submitForm">确 定</el-button>
                <el-button @click="cancel">取 消</el-button>
             </div>
          </template>
-      </el-dialog>
-      
-      <!-- 添加或修改布局通知对话框 -->
-      <el-dialog title="通知详情" v-model="layoutNoticeDialogVisible" width="780px" append-to-body>
-        <el-form ref="layoutNoticeRef" :model="layoutNoticeForm" label-width="80px">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="公告标题">
-                <el-input v-model="layoutNoticeForm.noticeTitle" readonly />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="公告类型">
-                <el-select v-model="layoutNoticeForm.noticeType" readonly>
-                  <el-option
-                    v-for="dict in sys_notice_type"
-                    :key="dict.value"
-                    :label="dict.label"
-                    :value="dict.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="状态">
-                <el-radio-group v-model="layoutNoticeForm.status" readonly>
-                  <el-radio
-                    v-for="dict in sys_notice_status"
-                    :key="dict.value"
-                    :value="dict.value"
-                  >{{ dict.label }}</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="内容">
-                <editor v-model="layoutNoticeForm.noticeContent" :min-height="192" readonly/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <template #footer>
-          <div class="dialog-footer">
-            <el-button @click="layoutNoticeDialogVisible = false">关 闭</el-button>
-          </div>
-        </template>
       </el-dialog>
    </div>
 </template>
 
 <script setup name="Notice">
 import { listNotice, getNotice, delNotice, addNotice, updateNotice } from "@/api/system/notice"
-import { listLayoutNotice, getLayoutNotice, delLayoutNotice, addLayoutNotice, updateLayoutNotice } from "@/api/notice/notice"
 
 const { proxy } = getCurrentInstance()
 const { sys_notice_status, sys_notice_type } = proxy.useDict("sys_notice_status", "sys_notice_type")
 
 const noticeList = ref([])
-const layoutNoticeList = ref([])
 const open = ref(false)
 const loading = ref(true)
 const showSearch = ref(true)
@@ -229,13 +173,9 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
-const layoutNoticeDialogVisible = ref(false)
-
-const viewOnly = ref(false);
 
 const data = reactive({
   form: {},
-  layoutNoticeForm: {},
   queryParams: {
     pageNum: 1,
     pageSize: 10,
@@ -249,34 +189,16 @@ const data = reactive({
   },
 })
 
-const { queryParams, form, rules, layoutNoticeForm } = toRefs(data)
+const { queryParams, form, rules } = toRefs(data)
 
 /** 查询公告列表 */
 function getList() {
   loading.value = true
-  // 获取系统通知数据
   listNotice(queryParams.value).then(response => {
-    const systemNotices = response.rows.map(item => ({
-      ...item,
-      source: 'system' // 标记为系统通知
-    }));
-    
-    noticeList.value = systemNotices;
-    total.value = response.total;
-    loading.value = false;
-  });
-  
-  // 获取布局通知数据
-  listLayoutNotice(queryParams.value).then(response => {
-    const layoutNotices = response.rows.map(item => ({
-      ...item,
-      source: 'layout', // 标记为布局通知
-      noticeId: `${item.noticeId}` // 避免ID冲突
-    }));
-    
-    // 合并两种通知
-    noticeList.value = [...noticeList.value, ...layoutNotices];
-  });
+    noticeList.value = response.rows
+    total.value = response.total
+    loading.value = false
+  })
 }
 
 /** 取消按钮 */
@@ -331,19 +253,6 @@ function handleUpdate(row) {
     form.value = response.data
     open.value = true
     title.value = "修改公告"
-    viewOnly.value = false
-  })
-}
-
-/** 查看按钮操作 */
-function handleView(row) {
-  reset()
-  const noticeId = row.noticeId || ids.value
-  getNotice(noticeId).then(response => {
-    form.value = response.data
-    open.value = true
-    title.value = "查看公告"
-    viewOnly.value = true
   })
 }
 
@@ -373,33 +282,6 @@ function handleDelete(row) {
   const noticeIds = row.noticeId || ids.value
   proxy.$modal.confirm('是否确认删除公告编号为"' + noticeIds + '"的数据项？').then(function() {
     return delNotice(noticeIds)
-  }).then(() => {
-    getList()
-    proxy.$modal.msgSuccess("删除成功")
-  }).catch(() => {})
-}
-
-// 处理布局通知查看
-function handleViewLayoutNotice(row) {
-  const noticeId = row.noticeId.replace('layout-', '');
-  getLayoutNotice(noticeId).then(response => {
-    layoutNoticeForm.value = response.data;
-    layoutNoticeDialogVisible.value = true;
-  });
-}
-
-// 处理布局通知更新
-function handleUpdateLayoutNotice(row) {
-  getLayoutNotice(row.noticeId).then(response => {
-    layoutNoticeForm.value = response.data
-    layoutNoticeDialogVisible.value = true
-  })
-}
-
-// 处理布局通知删除
-function handleDeleteLayoutNotice(row) {
-  proxy.$modal.confirm('是否确认删除布局通知编号为"' + row.noticeId + '"的数据项？').then(function() {
-    return delLayoutNotice(row.noticeId)
   }).then(() => {
     getList()
     proxy.$modal.msgSuccess("删除成功")

@@ -424,9 +424,9 @@
 import { listRequests, getRequests, delRequests, addRequests, updateRequests } from "@/api/requests/requests"
 import { listUser, getUser } from "@/api/system/user"
 import { listEmployees } from "@/api/employees/employees"
-import { listScheduling, getScheduling } from "@/api/scheduling/scheduling"
+import { listScheduling, getScheduling, addScheduling, updateScheduling } from "@/api/scheduling/scheduling"
 import { listShifts, getShifts } from "@/api/shifts/shifts"
-import { addLayoutNotice } from "@/api/notice/notice"
+
 import useUserStore from '@/store/modules/user'
 
 const { proxy } = getCurrentInstance()
@@ -744,116 +744,11 @@ function submitForm() {
           open.value = false
           getList()
           
-          // 发送通知给管理员和排班员
-          sendNewRequestNotification(response.data)
+  
         })
       }
     }
   })
-}
-
-// 发送新申请通知给管理员和排班员
-function sendNewRequestNotification(requestData) {
-  // 获取所有员工
-  listEmployees({ pageSize: 1000 }).then(employeeResponse => {
-    // 获取员工的用户信息
-    const userIds = employeeResponse.rows.map(employee => employee.userId);
-    
-    if (userIds.length === 0) {
-      console.warn("没有找到任何员工信息");
-      return;
-    }
-    
-    // 批量获取用户信息
-    const userPromises = userIds.map(userId => {
-      return getUser(userId).then(userRes => {
-        return {
-          userId: userId,
-          user: userRes.data
-        };
-      }).catch(() => {
-        // 获取用户信息失败，使用默认值
-        return {
-          userId: userId,
-          user: { 
-            userId: userId, 
-            userName: '未知用户', 
-            nickName: '',
-            roles: [] // 默认无角色
-          }
-        };
-      });
-    });
-    
-    Promise.all(userPromises).then(userResults => {
-      // 构建用户信息映射
-      const userMap = new Map();
-      userResults.forEach(result => {
-        userMap.set(result.userId, result.user);
-      });
-      
-      // 筛选出具有admin或leader权限的用户
-      const adminAndLeaderUsers = Array.from(userMap.values()).filter(user => 
-        user.roles && user.roles.some(role => role.roleKey === 'admin' || role.roleKey === 'leader')
-      );
-      
-      console.log("找到具有admin或leader权限的用户数量:", adminAndLeaderUsers.length);
-      
-      if (adminAndLeaderUsers.length === 0) {
-        console.warn("未找到具有admin或leader权限的用户");
-        // 尝试备用方案：给所有用户发送通知
-        Array.from(userMap.values()).forEach(user => {
-          const noticeData = {
-            noticeTitle: "新的换班申请",
-            noticeType: "1",
-            noticeContent: `有新的换班申请需要处理。申请人：${getUserDisplayName(requestData.requesterId) || '未知'}，申请类型：${requestData.model === 0 ? '换班' : '替班'}`,
-            status: "0"
-          };
-          
-          console.log("正在发送通知给用户:", user.userName);
-          addLayoutNotice(noticeData).then(response => {
-            console.log("通知发送成功:", response);
-          }).catch(error => {
-            console.error("发送通知失败:", error);
-          });
-        });
-      } else {
-        // 为每个符合条件的用户创建通知
-        adminAndLeaderUsers.forEach(user => {
-          const noticeData = {
-            noticeTitle: "新的换班申请",
-            noticeType: "1", // 通知类型，根据实际情况调整
-            noticeContent: `有新的换班申请需要处理。申请人：${getUserDisplayName(requestData.requesterId) || '未知'}，申请类型：${requestData.model === 0 ? '换班' : '替班'}`,
-            status: "0" // 通常0表示正常状态
-          }
-          
-          console.log("正在发送通知给用户:", user.userName);
-          addLayoutNotice(noticeData).then(response => {
-            console.log("通知发送成功:", response);
-          }).catch(error => {
-            console.error("发送通知失败:", error);
-          });
-        });
-      }
-    }).catch(error => {
-      console.error("获取用户信息时出错:", error);
-      // 出错时的备用方案：至少通知申请人自己
-      const noticeData = {
-        noticeTitle: "换班申请已提交",
-        noticeType: "1",
-        noticeContent: `您的换班申请已成功提交，请等待管理员审批。`,
-        status: "0"
-      };
-      
-      addLayoutNotice(noticeData).then(response => {
-        console.log("备用通知发送成功:", response);
-      }).catch(error => {
-        console.error("发送备用通知失败:", error);
-      });
-    });
-  }).catch(error => {
-    console.error("获取员工列表时出错:", error);
-  });
 }
 
 /** 提交审核 */
@@ -873,91 +768,18 @@ function submitApprove() {
         approveOpen.value = false
         getList()
         
-        // 发送审核结果通知给申请人
-        // 确保从响应数据中获取完整的申请数据
-        if (response && response.data) {
-          sendApprovalResultNotification(response.data)
-        } else {
-          // 如果响应中没有数据，尝试使用表单数据
-          // 确保必要的字段存在
-          const requestData = {
-            ...approveForm.value,
-            ...updateData,
-            requesterId: approveForm.value.requesterId // 确保 requesterId 存在
-          };
-          sendApprovalResultNotification(requestData);
+        // 如果审核通过，更新排班
+        if (approveForm.value.status === '1') {
+          updateSchedulingAfterApproval(approveForm.value);
         }
+        
+
       }).catch(error => {
         console.error("审核提交失败:", error);
         proxy.$modal.msgError("审核失败")
       })
     }
   })
-}
-
-// 发送审核结果通知给申请人
-function sendApprovalResultNotification(requestData) {
-  // 确保申请人ID存在
-  const requesterId = requestData.requesterId;
-  if (!requesterId) {
-    console.error("无法发送审核结果通知：缺少申请人ID", requestData);
-    proxy.$modal.msgError("发送审核结果通知失败：缺少申请人信息");
-    return;
-  }
-  
-  const statusText = requestData.status === "1" ? "已批准" : "已拒绝";
-  
-  // 先尝试从缓存获取申请人信息
-  if (userInfoCache.value.has(requesterId)) {
-    const requester = userInfoCache.value.get(requesterId);
-    const noticeData = {
-      noticeTitle: "换班申请审核结果",
-      noticeType: "1",
-      noticeContent: `您的换班申请已${statusText}。申请人：${requester.userName}(${requester.nickName})，申请类型：${requestData.model === 0 ? '换班' : '替班'}`,
-      status: "0"
-    };
-    
-    sendNoticeToRequester(requesterId, noticeData);
-  } else {
-    // 从服务器获取申请人信息
-    getUser(requesterId).then(userRes => {
-      const requester = userRes.data;
-      // 将用户信息加入缓存
-      userInfoCache.value.set(requesterId, requester);
-      
-      const noticeData = {
-        noticeTitle: "换班申请审核结果",
-        noticeType: "1",
-        noticeContent: `您的换班申请已${statusText}。申请人：${requester.userName}(${requester.nickName})，申请类型：${requestData.model === 0 ? '换班' : '替班'}`,
-        status: "0"
-      };
-      
-      sendNoticeToRequester(requesterId, noticeData);
-    }).catch(error => {
-      console.error("获取申请人信息失败:", error);
-      // 获取失败时使用默认通知内容
-      const noticeData = {
-        noticeTitle: "换班申请审核结果",
-        noticeType: "1",
-        noticeContent: `您的换班申请已${statusText}。申请类型：${requestData.model === 0 ? '换班' : '替班'}`,
-        status: "0"
-      };
-      
-      sendNoticeToRequester(requesterId, noticeData);
-    });
-  }
-}
-
-// 实际发送通知的函数
-function sendNoticeToRequester(requesterId, noticeData) {
-  console.log("正在发送审核结果通知给申请人:", requesterId);
-  
-  addLayoutNotice(noticeData).then(response => {
-    console.log("审核结果通知发送成功:", response);
-  }).catch(error => {
-    console.error("发送审核结果通知失败:", error);
-    proxy.$modal.msgError("发送审核结果通知失败");
-  });
 }
 
 /** 删除按钮操作 */
@@ -1255,6 +1077,121 @@ function loadUserSchedulings(userId, type) {
     shiftLoading.value = false;
   }).catch(() => {
     shiftLoading.value = false;
+  });
+}
+
+// 审核通过后更新排班
+function updateSchedulingAfterApproval(requestData) {
+  // 获取完整的申请信息
+  getRequests(requestData.id).then(response => {
+    const fullRequestData = response.data;
+    
+    // 根据申请类型处理不同的排班更新逻辑
+    if (fullRequestData.model === 0) { // 换班
+      // 换班逻辑：交换申请人和目标人的排班
+      handleSwapShifts(fullRequestData);
+    } else if (fullRequestData.model === 1) { // 替班
+      // 替班逻辑：将申请人的排班更新为目标排班
+      handleSubstituteShifts(fullRequestData);
+    }
+  }).catch(error => {
+    console.error("获取申请详细信息失败:", error);
+    proxy.$modal.msgError("更新排班失败");
+  });
+}
+
+// 处理换班逻辑
+function handleSwapShifts(requestData) {
+  // 获取原排班和目标排班的详细信息
+  Promise.all([
+    getScheduling(requestData.requestedShiftId), // 原排班
+    getScheduling(requestData.swappedShiftId)     // 目标排班
+  ]).then(([originalResponse, targetResponse]) => {
+    const originalScheduling = originalResponse.data;
+    const targetScheduling = targetResponse.data;
+    
+    // 交换排班的员工ID
+    const updatedOriginalScheduling = {
+      ...originalScheduling,
+      userId: targetScheduling.userId // 原排班现在分配给目标人的员工
+    };
+    
+    const updatedTargetScheduling = {
+      ...targetScheduling,
+      userId: originalScheduling.userId // 目标排班现在分配给原排班的员工
+    };
+    
+    // 更新两个排班记录
+    Promise.all([
+      updateScheduling(updatedOriginalScheduling),
+      updateScheduling(updatedTargetScheduling)
+    ]).then(() => {
+      proxy.$modal.msgSuccess("换班排班更新成功");
+      // 刷新排班列表
+      if (getList) getList();
+    }).catch(error => {
+      console.error("更新排班失败:", error);
+      proxy.$modal.msgError("更新排班失败");
+    });
+  }).catch(error => {
+    console.error("获取排班信息失败:", error);
+    proxy.$modal.msgError("获取排班信息失败");
+  });
+}
+
+// 处理替班逻辑
+function handleSubstituteShifts(requestData) {
+  // 获取目标排班的详细信息
+  getScheduling(requestData.swappedShiftId).then(response => {
+    const targetScheduling = response.data;
+    
+    // 获取申请人当前日期的排班信息（如果存在）
+    listScheduling({
+      userId: requestData.requesterId,
+      scheduleDate: targetScheduling.scheduleDate,
+      pageSize: 1
+    }).then(schedulingResponse => {
+      if (schedulingResponse.rows && schedulingResponse.rows.length > 0) {
+        // 如果申请人当天已有排班，更新该排班
+        const applicantScheduling = schedulingResponse.rows[0];
+        const updatedScheduling = {
+          ...applicantScheduling,
+          shiftId: targetScheduling.shiftId
+        };
+        
+        updateScheduling(updatedScheduling).then(() => {
+          proxy.$modal.msgSuccess("替班排班更新成功");
+          // 刷新排班列表
+          if (getList) getList();
+        }).catch(error => {
+          console.error("更新申请人排班失败:", error);
+          proxy.$modal.msgError("更新申请人排班失败");
+        });
+      } else {
+        // 如果申请人当天没有排班，创建新的排班记录
+        const newScheduling = {
+          userId: requestData.requesterId,
+          shiftId: targetScheduling.shiftId,
+          scheduleDate: targetScheduling.scheduleDate,
+          status: '2' // 默认状态
+        };
+        
+        addScheduling(newScheduling).then(() => {
+          proxy.$modal.msgSuccess("替班排班创建成功");
+          // 刷新排班列表
+          if (getList) getList();
+        }).catch(error => {
+          console.error("创建申请人排班失败:", error);
+          proxy.$modal.msgError("创建申请人排班失败");
+        });
+      }
+    }).catch(error => {
+      console.error("查询申请人排班失败:", error);
+      proxy.$modal.msgError("查询申请人排班失败");
+    });
+  }).catch(error => {
+    console.error("获取目标排班信息失败:", error);
+    proxy.$modal.msgError("获取目标排班信息失败");
   });
 }
 
