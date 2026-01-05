@@ -17,8 +17,8 @@
         <pane size="84">
           <el-col>
             <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-              <el-form-item label="用户名称" prop="nickName">
-                <el-input v-model="queryParams.nickName" placeholder="请输入用户名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+              <el-form-item label="用户名称" prop="userName">
+                <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
               </el-form-item>
               <el-form-item label="手机号码" prop="phonenumber">
                 <el-input v-model="queryParams.phonenumber" placeholder="请输入手机号码" clearable style="width: 240px" @keyup.enter="handleQuery" />
@@ -59,8 +59,8 @@
             <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="50" align="center" />
               <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-              <el-table-column label="用户账号" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-              <el-table-column label="用户名称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+              <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
               <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
               <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
               <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
@@ -106,8 +106,8 @@
       <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="用户名称" prop="nickName">
-              <el-input v-model="form.nickName" placeholder="请输入用户名称" maxlength="30" />
+            <el-form-item label="用户昵称" prop="nickName">
+              <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -130,8 +130,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户账号" prop="userName">
-              <el-input v-model="form.userName" placeholder="请输入用户账号" maxlength="30" />
+            <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
+              <el-input v-model="form.userName" placeholder="请输入用户名称" maxlength="30" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -216,8 +216,7 @@
 <script setup name="User">
 import { getToken } from "@/utils/auth"
 import useAppStore from '@/store/modules/app'
-import { changeUserStatus, resetUserPwd, delUser, updateUser, addUser, deptTreeSelect } from "@/api/system/user"
-import { listEmployees } from "@/api/employees/employees"
+import { changeUserStatus, listUser, resetUserPwd, delUser, getUser, updateUser, addUser, deptTreeSelect } from "@/api/system/user"
 import { Splitpanes, Pane } from "splitpanes"
 import "splitpanes/dist/splitpanes.css"
 
@@ -303,23 +302,11 @@ watch(deptName, val => {
 /** 查询用户列表 */
 function getList() {
   loading.value = true
-  listEmployees(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
+  listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
     loading.value = false
-    userList.value = res.rows.map(employee => {
-      return {
-        userId: employee.userId,
-        userName: employee.userId, // 员工ID作为用户名显示
-        nickName: '员工-' + employee.userId, // 昵称
-        phonenumber: '', // 员工表中没有电话字段
-        status: '0', // 默认启用状态
-        createTime: employee.hireDate, // 使用入职日期作为创建时间
-        dept: { deptName: '员工部门' } // 默认部门
-      };
-    });
+    userList.value = res.rows
     total.value = res.total
-  }).catch(() => {
-    loading.value = false
-  });
+  })
 }
 
 /** 查询部门下拉树结构 */
@@ -512,20 +499,16 @@ function handleAdd() {
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset()
-  const employeeId = row.id || ids.value
-  getEmployees(employeeId).then(response => {
+  const userId = row.userId || ids.value
+  getUser(userId).then(response => {
     form.value = response.data
-    // 获取岗位和角色信息
-    getUser().then(userResponse => {
-      postOptions.value = userResponse.posts
-      roleOptions.value = userResponse.roles
-      // 设置岗位和角色ID
-      form.value.postIds = []
-      form.value.roleIds = []
-      open.value = true
-      title.value = "修改员工"
-      form.password = ""
-    })
+    postOptions.value = response.posts
+    roleOptions.value = response.roles
+    form.value.postIds = response.postIds
+    form.value.roleIds = response.roleIds
+    open.value = true
+    title.value = "修改用户"
+    form.password = ""
   })
 }
 
