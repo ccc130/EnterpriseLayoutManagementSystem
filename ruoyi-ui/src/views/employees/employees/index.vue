@@ -28,7 +28,7 @@
       </el-form-item>
       <el-form-item label="每周工作时长" prop="workHoursPerWeek">
         <el-input
-          v-model="queryParams.workHoursPerWeek"
+          v-model.number="queryParams.workHoursPerWeek"
           placeholder="请输入每周工作时长(小时)"
           clearable
           @keyup.enter="handleQuery"
@@ -126,7 +126,11 @@
       </el-table-column>
       <el-table-column label="每周工作时长(小时)" align="center" prop="workHoursPerWeek"/>
       <el-table-column label="最大连续工作天数" align="center" prop="maxConsecutiveDays" />
-      <el-table-column label="周末出勤偏好" align="center" prop="weekendPreference" />
+      <el-table-column label="周末出勤偏好" align="center" prop="weekendPreference">
+        <template #default="scope">
+          <dict-tag :options="layout_weekend" :value="scope.row.weekendPreference" />
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="skills" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
@@ -183,7 +187,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="每周工作时长" prop="workHoursPerWeek">
-          <el-input v-model="form.workHoursPerWeek" placeholder="请输入每周工作时长(小时)" />
+          <el-input v-model.number="form.workHoursPerWeek" placeholder="请输入每周工作时长(小时)" />
         </el-form-item>
         <el-form-item label="最大连续工作天数" prop="maxConsecutiveDays">
           <el-input v-model="form.maxConsecutiveDays" placeholder="请输入最大连续工作天数" />
@@ -257,15 +261,42 @@ const data = reactive({
       { required: true, message: "入职日期不能为空", trigger: "blur" }
     ],
     workHoursPerWeek: [
-      { type: "number", message: "每周工作时长必须为数字值", trigger: "blur" }
-      ,
-      { type: "number", min: 0, message: "每周工作时长不能小于0小时", trigger: "blur" }
-    ]
-    ,
+      { 
+        validator: (rule, value, callback) => {
+          if (value === null || value === undefined || value === '') {
+            callback();
+          } else {
+            const numValue = Number(value);
+            if (isNaN(numValue)) {
+              callback(new Error("每周工作时长必须为数字值"));
+            } else if (numValue < 0) {
+              callback(new Error("每周工作时长不能小于0小时"));
+            } else {
+              callback();
+            }
+          }
+        }, 
+        trigger: "blur" 
+      }
+    ],
     maxConsecutiveDays: [
-      { type: "number", message: "最大连续工作天数必须为数字值", trigger: "blur" }
-      ,
-      { type: "number", min: 0, message: "最大连续工作天数不能小于0天", trigger: "blur" }
+      { 
+        validator: (rule, value, callback) => {
+          if (value === null || value === undefined || value === '') {
+            callback();
+          } else {
+            const numValue = Number(value);
+            if (isNaN(numValue)) {
+              callback(new Error("最大连续工作天数必须为数字值"));
+            } else if (numValue < 0) {
+              callback(new Error("最大连续工作天数不能小于0天"));
+            } else {
+              callback();
+            }
+          }
+        }, 
+        trigger: "blur" 
+      }
     ]
   }
 })
