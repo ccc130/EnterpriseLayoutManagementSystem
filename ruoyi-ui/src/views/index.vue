@@ -110,10 +110,10 @@
             <span>快捷操作</span>
           </template>
           <div class="quick-operation-list">
-            <el-button type="primary" @click="goTarget('/scheduling/scheduling')">创建排班</el-button>
-            <el-button type="success" @click="goTarget('/employees/employees')">员工管理</el-button>
-            <el-button type="info" @click="goTarget('/shifts/shifts')">班次设置</el-button>
-            <el-button type="warning" @click="goTarget('/requests/requests')">请假申请</el-button>
+            <el-button type="primary" @click="goTarget('/layout/scheduling')">创建排班</el-button>
+            <el-button type="success" @click="goTarget('/layout/employees')">员工管理</el-button>
+            <el-button type="info" @click="goTarget('/layout/shifts')">班次设置</el-button>
+            <el-button type="warning" @click="goTarget('/layout/requests')">请假申请</el-button>
           </div>
         </el-card>
       </el-col>

@@ -102,6 +102,7 @@
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
               <el-button v-if="scope.row.source === 'system'" link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">修改</el-button>
+              <el-button v-if="scope.row.source === 'system'" link type="primary" icon="View" @click="handleView(scope.row)">查看</el-button>
               <el-button v-if="scope.row.source === 'system'" link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:notice:remove']">删除</el-button>
               <el-button v-else link type="primary" icon="View" @click="handleViewLayoutNotice(scope.row)">查看</el-button>
             </template>
@@ -122,12 +123,12 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="公告标题" prop="noticeTitle">
-                     <el-input v-model="form.noticeTitle" placeholder="请输入公告标题" />
+                     <el-input v-model="form.noticeTitle" :readonly="viewOnly" placeholder="请输入公告标题" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
                   <el-form-item label="公告类型" prop="noticeType">
-                     <el-select v-model="form.noticeType" placeholder="请选择">
+                     <el-select v-model="form.noticeType" :disabled="viewOnly" placeholder="请选择">
                         <el-option
                            v-for="dict in sys_notice_type"
                            :key="dict.value"
@@ -139,7 +140,7 @@
                </el-col>
                <el-col :span="24">
                   <el-form-item label="状态">
-                     <el-radio-group v-model="form.status">
+                     <el-radio-group v-model="form.status" :disabled="viewOnly">
                         <el-radio
                            v-for="dict in sys_notice_status"
                            :key="dict.value"
@@ -150,14 +151,14 @@
                </el-col>
                <el-col :span="24">
                   <el-form-item label="内容">
-                    <editor v-model="form.noticeContent" :min-height="192"/>
+                    <editor v-model="form.noticeContent" :min-height="192" :readonly="viewOnly" />
                   </el-form-item>
                </el-col>
             </el-row>
          </el-form>
          <template #footer>
             <div class="dialog-footer">
-               <el-button type="primary" @click="submitForm">确 定</el-button>
+               <el-button type="primary" @click="submitForm" v-if="!viewOnly">确 定</el-button>
                <el-button @click="cancel">取 消</el-button>
             </div>
          </template>
@@ -229,6 +230,8 @@ const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
 const layoutNoticeDialogVisible = ref(false)
+
+const viewOnly = ref(false);
 
 const data = reactive({
   form: {},
@@ -328,6 +331,19 @@ function handleUpdate(row) {
     form.value = response.data
     open.value = true
     title.value = "修改公告"
+    viewOnly.value = false
+  })
+}
+
+/** 查看按钮操作 */
+function handleView(row) {
+  reset()
+  const noticeId = row.noticeId || ids.value
+  getNotice(noticeId).then(response => {
+    form.value = response.data
+    open.value = true
+    title.value = "查看公告"
+    viewOnly.value = true
   })
 }
 

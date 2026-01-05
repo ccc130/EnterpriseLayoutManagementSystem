@@ -41,7 +41,7 @@
           end-placeholder="结束日期"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+      <el-form-item label="状态" prop="status" style="width: 308px">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable>
           <el-option
             v-for="dict in layout_status"
@@ -74,7 +74,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['scheduling:scheduling:edit']"
+          v-hasPermi="['scheduling:scheduling:edit', 'scheduling:scheduling:remove']"
         >修改</el-button>
       </el-col>
       <el-col  v-if="!visualMode":span="1.5">
@@ -133,7 +133,7 @@
       <el-table-column label="备注" align="center" prop="remarks" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['scheduling:scheduling:edit']">修改</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['scheduling:scheduling:edit', 'scheduling:scheduling:remove']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['scheduling:scheduling:remove']">删除</el-button>
         </template>
       </el-table-column>
@@ -160,6 +160,7 @@
             :remote-method="searchUsers"
             :loading="userLoading"
             reserve-keyword
+            :disabled="isReadOnly"
           >
             <el-option 
               v-for="item in userList" 
@@ -180,6 +181,7 @@
             :remote-method="searchShifts"
             :loading="shiftLoading"
             reserve-keyword
+            :disabled="isReadOnly"
           >
             <el-option 
               v-for="item in shiftList" 
@@ -195,11 +197,12 @@
             v-model="form.scheduleDate"
             type="date"
             value-format="YYYY-MM-DD"
-            placeholder="请选择排班日期">
+            placeholder="请选择排班日期"
+            :disabled="isReadOnly">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="状态" prop="status">
-          <el-select v-model="form.status" placeholder="请选择状态">
+          <el-select v-model="form.status" placeholder="请选择状态" :disabled="isReadOnly">
             <el-option
               v-for="dict in layout_status"
               :key="dict.value"
@@ -209,12 +212,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="remarks">
-          <el-input v-model="form.remarks" placeholder="请输入备注" />
+          <el-input v-model="form.remarks" placeholder="请输入备注" :disabled="isReadOnly" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button type="primary" @click="submitForm" v-if="!isReadOnly">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -272,7 +275,11 @@
              :content="getShiftTooltip(scope.row['day' + day.day])" 
              placement="top"
            >
-             {{ getShiftDisplay(scope.row['day' + day.day]) }}
+             <div class="shift-content">
+               <div class="shift-name">{{ getShiftDisplay(scope.row['day' + day.day]) }}</div>
+               <div v-if="isCurrentUser(scope.row.userId) && scope.row['day' + day.day].status !== '0'" class="confirm-btn" @click.stop="confirmShift(scope.row, day)">确认</div>
+               <div v-else-if="scope.row['day' + day.day].status === '0'" class="confirmed-text">已确认</div>
+             </div>
            </el-tooltip>
            <span v-else class="add-symbol">+</span>
          </div>
@@ -289,10 +296,26 @@ import { listUser, getUser } from "@/api/system/user"
 import { listEmployees } from "@/api/employees/employees"
 import { listShifts } from "@/api/shifts/shifts"
 import dayjs from 'dayjs'
+import useUserStore from '@/store/modules/user'
 
 const { proxy } = getCurrentInstance()
 const { layout_status } = proxy.useDict('layout_status')
 const shiftInfoCache = ref(new Map())
+
+// 获取当前用户ID
+const currentUserId = ref(null)
+
+// 获取当前用户ID
+onMounted(() => {
+  // 从store获取当前用户信息
+  const userStore = useUserStore()
+  currentUserId.value = userStore.id
+})
+
+// 判断是否为当前用户
+function isCurrentUser(userId) {
+  return currentUserId.value === userId
+}
 // 获取班次显示名称
 function getShiftDisplayInTable(shiftId) {
   if (shiftInfoCache.value.has(shiftId)) {
@@ -309,7 +332,9 @@ function getList() {
     queryParams.value.params["beginScheduleDate"] = daterangeScheduleDate.value[0]
     queryParams.value.params["endScheduleDate"] = daterangeScheduleDate.value[1]
   }
-  listScheduling(queryParams.value).then(response => {
+  // 确保获取所有数据，而不是分页数据
+  const params = { ...queryParams.value, pageSize: 10000 }
+  listScheduling(params).then(response => {
     schedulingList.value = response.rows
     total.value = response.total
     loading.value = false
@@ -408,6 +433,8 @@ const data = reactive({
   }
 })
 
+const isReadOnly = ref(false);
+
 const { queryParams, form, rules } = toRefs(data)
 
 
@@ -467,6 +494,19 @@ function handleUpdate(row) {
     form.value = response.data
     open.value = true
     title.value = "修改排班情况"
+    isReadOnly.value = false
+  })
+}
+
+/** 查看按钮操作 */
+function handleView(row) {
+  reset()
+  const _id = row.id || ids.value
+  getScheduling(_id).then(response => {
+    form.value = response.data
+    open.value = true
+    title.value = "查看排班情况"
+    isReadOnly.value = true
   })
 }
 
@@ -479,12 +519,20 @@ function submitForm() {
           proxy.$modal.msgSuccess("修改成功")
           open.value = false
           getList()
+          // 如果当前在可视化模式，刷新可视化数据
+          if (visualMode.value) {
+            loadVisualData()
+          }
         })
       } else {
         addScheduling(form.value).then(response => {
           proxy.$modal.msgSuccess("新增成功")
           open.value = false
           getList()
+          // 如果当前在可视化模式，刷新可视化数据
+          if (visualMode.value) {
+            loadVisualData()
+          }
         })
       }
     }
@@ -499,6 +547,10 @@ function handleDelete(row) {
   }).then(() => {
     getList()
     proxy.$modal.msgSuccess("删除成功")
+    // 如果当前在可视化模式，刷新可视化数据
+    if (visualMode.value) {
+      loadVisualData()
+    }
   }).catch(() => {})
 }
 
@@ -645,6 +697,9 @@ function toggleVisualMode() {
   visualMode.value = !visualMode.value
   if (visualMode.value) {
     loadVisualData()
+    startAutoRefresh() // 进入可视化模式时开启定时刷新
+  } else {
+    stopAutoRefresh() // 离开可视化模式时停止定时刷新
   }
 }
 
@@ -659,7 +714,9 @@ function loadVisualData() {
   const beginDate = `${visualMonth.value}-01`
   const endDate = dayjs(`${visualMonth.value}-01`).endOf('month').format('YYYY-MM-DD')
   
+  // 使用大pageSize确保获取所有数据
   listScheduling({
+    pageSize: 10000,
     params: {
       beginScheduleDate: beginDate,
       endScheduleDate: endDate
@@ -691,7 +748,7 @@ function generateDaysInMonth() {
 function processVisualData(schedulings) {
   loadAllShifts().then(() => {
     // 先获取所有员工信息
-    listEmployees({ pageSize: 1000 }).then(employeeResponse => {
+    listEmployees({ pageSize: 10000 }).then(employeeResponse => { // 增大pageSize以确保获取所有员工
       // 获取所有员工的用户信息
       const userIds = employeeResponse.rows.map(employee => employee.userId);
       
@@ -751,6 +808,7 @@ function processVisualData(schedulings) {
           // 设置该员工在特定日期的排班信息
           const day = dayjs(item.scheduleDate).date()
           employeeScheduleMap.get(item.userId)[`day${day}`] = {
+            id: item.id, // 保存排班记录ID
             shiftId: item.shiftId,
             status: item.status,
             remarks: item.remarks
@@ -821,11 +879,110 @@ function processVisualData(schedulings) {
     }
   }
 
+  // 确认班次
+  function confirmShift(row, day) {
+    // 使用可视化数据中的ID直接更新，避免重复查询
+    const dayKey = 'day' + day.day
+    const scheduleInfo = row[dayKey]
+    
+    if (scheduleInfo && scheduleInfo.id) {
+      // 直接使用已有的排班记录ID进行更新
+      const scheduleRecord = {
+        id: scheduleInfo.id,
+        userId: row.userId,
+        shiftId: scheduleInfo.shiftId,
+        scheduleDate: day.date,
+        status: '0', // 设置为已确认状态
+        remarks: scheduleInfo.remarks || null
+      }
+      
+      updateScheduling(scheduleRecord).then(updateResponse => {
+        proxy.$modal.msgSuccess("班次确认成功")
+        // 直接更新本地数据以立即反映变化
+        // 更新可视化数据中的对应项
+        const updatedData = [...visualSchedulingData.value]
+        const userRow = updatedData.find(item => item.userId === row.userId)
+        if (userRow) {
+          const dayKey = 'day' + day.day
+          if (userRow[dayKey]) {
+            userRow[dayKey].status = '0'
+            visualSchedulingData.value = updatedData
+          }
+        }
+        // 刷新可视化数据以确保一致性，使用更长的延迟确保后端处理完成
+        if (visualMode.value) {
+          setTimeout(() => {
+            loadVisualData() // 完全刷新可视化数据，确保状态变更持久化
+          }, 1000) // 延迟1秒再刷新，确保后端有足够时间处理更新
+        }
+        // 同时刷新列表数据
+        setTimeout(() => {
+          getList()
+        }, 1000) // 延迟1秒再刷新列表数据
+      }).catch(error => {
+        proxy.$modal.msgError("班次确认失败: " + error.msg)
+        // 刷新数据以恢复到正确状态
+        if (visualMode.value) {
+          loadVisualData()
+        }
+        getList()
+      })
+    } else {
+      // 如果没有找到ID，回退到原来的查询方式
+      listScheduling({
+        userId: row.userId,
+        scheduleDate: day.date,
+        pageSize: 1
+      }).then(response => {
+        if (response.rows && response.rows.length > 0) {
+          const scheduleRecord = { ...response.rows[0] } // 复制对象以避免直接修改响应数据
+          // 更新排班状态为已确认（状态'0'表示已确认）
+          scheduleRecord.status = '0'
+          updateScheduling(scheduleRecord).then(updateResponse => {
+            proxy.$modal.msgSuccess("班次确认成功")
+            // 直接更新本地数据以立即反映变化
+            // 更新可视化数据中的对应项
+            const updatedData = [...visualSchedulingData.value]
+            const userRow = updatedData.find(item => item.userId === row.userId)
+            if (userRow) {
+              const dayKey = 'day' + day.day
+              if (userRow[dayKey]) {
+                userRow[dayKey].status = '0'
+                visualSchedulingData.value = updatedData
+              }
+            }
+            // 刷新可视化数据以确保一致性，使用更长的延迟确保后端处理完成
+            if (visualMode.value) {
+              setTimeout(() => {
+                loadVisualData() // 完全刷新可视化数据，确保状态变更持久化
+              }, 1000) // 延迟1秒再刷新，确保后端有足够时间处理更新
+            }
+            // 同时刷新列表数据
+            setTimeout(() => {
+              getList()
+            }, 1000) // 延迟1秒再刷新列表数据
+          }).catch(error => {
+            proxy.$modal.msgError("班次确认失败: " + error.msg)
+            // 刷新数据以恢复到正确状态
+            if (visualMode.value) {
+              loadVisualData()
+            }
+            getList()
+          })
+        } else {
+          proxy.$modal.msgError("未找到对应的排班记录")
+        }
+      }).catch(error => {
+        proxy.$modal.msgError("获取排班记录失败: " + error.msg)
+      })
+    }
+  }
+
   // 处理单元格点击事件
   function handleCellClick(row, day, scheduleInfo) {
     if (scheduleInfo) {
-      // 编辑现有排班
-      editVisualSchedule(row.userId, day.date, scheduleInfo)
+      // 查看现有排班（只读模式）
+      viewVisualSchedule(row.userId, day.date, scheduleInfo)
     } else {
       // 新增排班
       addVisualSchedule(row.userId, day.date)
@@ -837,10 +994,40 @@ function processVisualData(schedulings) {
     // 根据用户ID和日期查找完整的排班记录
     listScheduling({
       userId: userId,
-      scheduleDate: date
+      scheduleDate: date,
+      pageSize: 1  // 只需要一条记录
     }).then(response => {
       if (response.rows && response.rows.length > 0) {
         handleUpdate(response.rows[0])
+        
+        // 确保用户信息已加载
+        if (userId && !userInfoCache.value.has(userId)) {
+          getUser(userId).then(userRes => {
+            userInfoCache.value.set(userId, userRes.data);
+          }).catch(() => {
+            userInfoCache.value.set(userId, { 
+              userId: userId, 
+              userName: '未知用户', 
+              nickName: '' 
+            });
+          });
+        }
+      }
+    }).catch(() => {
+      proxy.$modal.msgError("获取排班信息失败")
+    })
+  }
+  
+  // 查看可视化排班（只读模式）
+  function viewVisualSchedule(userId, date, scheduleInfo) {
+    // 根据用户ID和日期查找完整的排班记录
+    listScheduling({
+      userId: userId,
+      scheduleDate: date,
+      pageSize: 1
+    }).then(response => {
+      if (response.rows && response.rows.length > 0) {
+        handleView(response.rows[0])
       }
     }).catch(() => {
       proxy.$modal.msgError("获取排班信息失败")
@@ -854,10 +1041,49 @@ function processVisualData(schedulings) {
     form.value.scheduleDate = date
     open.value = true
     title.value = "添加排班情况"
+    
+    // 确保用户信息已加载
+    if (userId && !userInfoCache.value.has(userId)) {
+      getUser(userId).then(userRes => {
+        userInfoCache.value.set(userId, userRes.data);
+      }).catch(() => {
+        userInfoCache.value.set(userId, { 
+          userId: userId, 
+          userName: '未知用户', 
+          nickName: '' 
+        });
+      });
+    }
   }
 
 // 添加导出状态
 const exportLoading = ref(false)
+
+// 定时刷新相关
+let refreshTimer = null
+
+// 开启定时刷新
+function startAutoRefresh() {
+  // 清除已有的定时器
+  if (refreshTimer) {
+    clearInterval(refreshTimer)
+  }
+  
+  // 每分钟刷新一次数据（当在可视化模式时）
+  refreshTimer = setInterval(() => {
+    if (visualMode.value) {
+      loadVisualData()
+    }
+  }, 60000) // 每分钟刷新一次
+}
+
+// 停止定时刷新
+function stopAutoRefresh() {
+  if (refreshTimer) {
+    clearInterval(refreshTimer)
+    refreshTimer = null
+  }
+}
 
 // 导出可视化视图为图片
 function exportVisualAsImage() {
@@ -897,6 +1123,20 @@ function exportVisualAsImage() {
     })
   })
 }
+
+// 组件卸载时清理定时器
+onUnmounted(() => {
+  stopAutoRefresh()
+})
+
+// 组件挂载时获取当前用户信息
+onMounted(() => {
+  getList()
+  // 从store获取当前用户信息
+  const userStore = useUserStore()
+  currentUserId.value = userStore.id
+  console.log('Current user ID:', currentUserId.value) // 调试信息
+})
 
 getList()
 </script>
@@ -980,5 +1220,35 @@ getList()
 
 .visual-table.export-optimized :deep(.el-table__cell) {
   padding: 2px 0;
+}
+
+.shift-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shift-name {
+  margin-bottom: 4px;
+}
+
+.confirm-btn {
+  background-color: #409eff;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.confirm-btn:hover {
+  background-color: #66b1ff;
+}
+
+.confirmed-text {
+  color: #67c23a;
+  font-size: 10px;
+  margin-top: 2px;
 }
 </style>

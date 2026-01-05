@@ -17,15 +17,7 @@
         <el-time-picker v-model="form.endtime" format="HH:mm" value-format="HH:mm"
           :style="{width: '100%'}" placeholder="请选择结束时间" clearable :disabled="!form.starttime"></el-time-picker>
       </el-form-item>
-      <el-form-item label="结束时间" prop="endtime">
-        <el-date-picker clearable
-          v-model="queryParams.endtime"
-          type="date"
-          value-format="YYYY-MM-DD"
-          placeholder="请选择结束时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="班次类型" prop="shiftType">
+      <el-form-item label="班次类型" prop="shiftType" style="width: 200px">
         <el-select v-model="queryParams.shiftType" placeholder="请选择班次类型" clearable>
           <el-option
             v-for="dict in layout_type"
