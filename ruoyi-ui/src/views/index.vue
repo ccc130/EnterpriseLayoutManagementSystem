@@ -221,9 +221,8 @@ async function fetchScheduleChartData() {
         dateMap[dateStr].scheduled++
       } else if (item.status === '2' || item.status === '待确认') {
         dateMap[dateStr].pending++
-      } else {
-        dateMap[dateStr].exceptional++
       }
+      // 不再统计异常状态，移除异常折线
     })
     
     // 生成最近7天的数据
@@ -356,12 +355,6 @@ async function updateCharts() {
         type: 'line',
         stack: 'Total',
         data: scheduleData.pending
-      },
-      {
-        name: '异常',
-        type: 'line',
-        stack: 'Total',
-        data: scheduleData.exceptional
       }
     ]
   })
@@ -420,7 +413,7 @@ function initCharts() {
       trigger: 'axis'
     },
     legend: {
-      data: ['已安排', '待安排', '异常']
+      data: ['已安排', '待安排']
     },
     grid: {
       left: '3%',
@@ -450,12 +443,6 @@ function initCharts() {
       },
       {
         name: '待安排',
-        type: 'line',
-        stack: 'Total',
-        data: []
-      },
-      {
-        name: '异常',
         type: 'line',
         stack: 'Total',
         data: []

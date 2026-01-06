@@ -332,9 +332,7 @@ function getList() {
     queryParams.value.params["beginScheduleDate"] = daterangeScheduleDate.value[0]
     queryParams.value.params["endScheduleDate"] = daterangeScheduleDate.value[1]
   }
-  // 确保获取所有数据，而不是分页数据
-  const params = { ...queryParams.value, pageSize: 10000 }
-  listScheduling(params).then(response => {
+  listScheduling(queryParams.value).then(response => {
     schedulingList.value = response.rows
     total.value = response.total
     loading.value = false
@@ -981,11 +979,19 @@ function processVisualData(schedulings) {
   // 处理单元格点击事件
   function handleCellClick(row, day, scheduleInfo) {
     if (scheduleInfo) {
-      // 查看现有排班（只读模式）
-      viewVisualSchedule(row.userId, day.date, scheduleInfo)
+      // 如果有权限，可以编辑；否则只读查看
+      if (proxy.$auth.hasPermi('scheduling:scheduling:edit') && proxy.$auth.hasPermi('scheduling:scheduling:remove')) {
+        // 有权限，可以编辑
+        editVisualSchedule(row.userId, day.date, scheduleInfo)
+      } else {
+        // 无权限，只读查看
+        viewVisualSchedule(row.userId, day.date, scheduleInfo)
+      }
     } else {
-      // 新增排班
-      addVisualSchedule(row.userId, day.date)
+      // 新增排班（需要添加权限）
+      if (proxy.$auth.hasPermi('scheduling:scheduling:add')) {
+        addVisualSchedule(row.userId, day.date)
+      }
     }
   }
 
