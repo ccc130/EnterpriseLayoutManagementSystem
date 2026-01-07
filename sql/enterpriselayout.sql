@@ -11,7 +11,7 @@
  Target Server Version : 80200
  File Encoding         : 65001
 
- Date: 23/12/2025 11:10:36
+ Date: 07/01/2026 15:19:23
 */
 
 SET NAMES utf8mb4;
@@ -32,36 +32,18 @@ CREATE TABLE `layout_employees`  (
   `weekend_preference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '周末出勤偏好(可出勤/需休息)',
   `skills` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '技能标签(如\"可顶岗\"\"持证上岗\")',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of layout_employees
 -- ----------------------------
-INSERT INTO `layout_employees` VALUES (17, 1, NULL, 103, '2025-11-26 00:00:00', NULL, NULL, NULL, NULL);
-INSERT INTO `layout_employees` VALUES (20, 101, NULL, NULL, '2025-11-09 00:00:00', NULL, NULL, NULL, NULL);
-
--- ----------------------------
--- Table structure for layout_notice
--- ----------------------------
-DROP TABLE IF EXISTS `layout_notice`;
-CREATE TABLE `layout_notice`  (
-  `notice_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `notice_title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
-  `notice_content` longblob COMMENT '公告内容',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
-  `aims` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '接收者',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of layout_notice
--- ----------------------------
-INSERT INTO `layout_notice` VALUES (11, '换班申请已提交', '1', 0xE682A8E79A84E68DA2E78FADE794B3E8AFB7E5B7B2E68890E58A9FE68F90E4BAA4EFBC8CE8AFB7E7AD89E5BE85E7AEA1E79086E59198E5AEA1E689B9E38082, '0', '', '2025-11-29 21:03:49', '', NULL);
-INSERT INTO `layout_notice` VALUES (12, '换班申请审核结果', '1', 0xE682A8E79A84E68DA2E78FADE794B3E8AFB7E5B7B2E5B7B2E689B9E58786E38082E794B3E8AFB7E4BABAEFBC9A61646D696E28E88BA5E4BE9D29EFBC8CE794B3E8AFB7E7B1BBE59E8BEFBC9AE69BBFE78FAD, '0', '', '2025-11-29 21:56:37', '', NULL);
+INSERT INTO `layout_employees` VALUES (21, 1, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152032A005.jpg', 103, '2026-01-05 00:00:00', 60, 6, '0', NULL);
+INSERT INTO `layout_employees` VALUES (22, 101, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152157A006.jpg', 106, '2026-01-04 00:00:00', 60, 7, '0', NULL);
+INSERT INTO `layout_employees` VALUES (23, 103, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152222A007.jpg', 108, '2026-01-05 00:00:00', 60, 6, '1', NULL);
+INSERT INTO `layout_employees` VALUES (24, 104, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152240A008.jpg', 101, '2026-01-05 00:00:00', 60, 5, '0', NULL);
+INSERT INTO `layout_employees` VALUES (25, 105, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152344A009.jpg', 105, '2026-01-05 00:00:00', 66, 6, '0', NULL);
+INSERT INTO `layout_employees` VALUES (26, 106, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152404A010.jpg', 102, '2026-01-07 00:00:00', 66, 6, '1', NULL);
+INSERT INTO `layout_employees` VALUES (27, 107, '/profile/upload/2026/01/05/微信图片_20251222163313_20260105152422A011.jpg', 107, '2026-01-05 00:00:00', 66, 6, '1', NULL);
 
 -- ----------------------------
 -- Table structure for layout_scheduling
@@ -75,13 +57,37 @@ CREATE TABLE `layout_scheduling`  (
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态(已安排、已确认、已取消)',
   `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of layout_scheduling
 -- ----------------------------
-INSERT INTO `layout_scheduling` VALUES (1, 1, 9, '2025-11-05 00:00:00', '1', NULL);
-INSERT INTO `layout_scheduling` VALUES (4, 101, 9, '2025-11-06 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (5, 101, 12, '2026-01-01 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (6, 101, 13, '2026-01-02 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (7, 101, 12, '2026-01-03 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (8, 101, 13, '2026-01-04 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (9, 101, 12, '2026-01-05 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (10, 103, 14, '2026-01-02 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (11, 104, 14, '2026-01-03 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (12, 103, 14, '2026-01-04 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (13, 103, 14, '2026-01-05 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (14, 103, 14, '2026-01-06 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (15, 104, 14, '2026-01-02 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (16, 105, 13, '2026-01-03 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (17, 104, 12, '2026-01-02 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (18, 105, 12, '2026-01-03 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (19, 106, 13, '2026-01-04 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (20, 1, 12, '2026-01-06 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (21, 103, 12, '2026-01-01 00:00:00', '0', NULL);
+INSERT INTO `layout_scheduling` VALUES (22, 105, 13, '2026-01-04 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (23, 105, 12, '2026-01-07 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (24, 105, 12, '2026-01-08 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (25, 105, 13, '2026-01-05 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (26, 105, 13, '2026-01-06 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (27, 105, 13, '2026-01-02 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (28, 106, 13, '2026-01-02 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (29, 106, 14, '2026-01-03 00:00:00', '2', NULL);
+INSERT INTO `layout_scheduling` VALUES (30, 106, 13, '2026-01-06 00:00:00', '2', NULL);
 
 -- ----------------------------
 -- Table structure for layout_shift_swap_requests
@@ -100,13 +106,14 @@ CREATE TABLE `layout_shift_swap_requests`  (
   `approved_by` int(0) DEFAULT NULL COMMENT '审批人id',
   `approved_at` datetime(0) DEFAULT NULL COMMENT '审批时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of layout_shift_swap_requests
 -- ----------------------------
-INSERT INTO `layout_shift_swap_requests` VALUES (7, 1, 101, 1, NULL, 4, '2025-11-29 00:00:00', '0', 'as', NULL, NULL);
-INSERT INTO `layout_shift_swap_requests` VALUES (8, 1, 101, 1, NULL, 4, '2025-11-29 00:00:00', '1', '12', 1, '2025-11-29 00:00:00');
+INSERT INTO `layout_shift_swap_requests` VALUES (11, 1, 103, 0, 21, 11, '2026-01-05 00:00:00', '1', '123', 1, '2026-01-05 00:00:00');
+INSERT INTO `layout_shift_swap_requests` VALUES (12, 1, 104, 0, 11, 20, '2026-01-05 00:00:00', '1', '123', 2, '2026-01-07 00:00:00');
+INSERT INTO `layout_shift_swap_requests` VALUES (13, 101, 104, 0, 5, 17, '2026-01-07 00:00:00', '0', '123', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for layout_shifts
@@ -120,14 +127,14 @@ CREATE TABLE `layout_shifts`  (
   `shift_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '班次类型(如正常班、夜班)',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of layout_shifts
 -- ----------------------------
-INSERT INTO `layout_shifts` VALUES (9, '2', '23:25:00', '19:20:00', '0', NULL);
-INSERT INTO `layout_shifts` VALUES (10, '12', '00:15:00', '00:16:00', '0', NULL);
-INSERT INTO `layout_shifts` VALUES (11, '13', '02:16:00', '06:30:00', '1', NULL);
+INSERT INTO `layout_shifts` VALUES (12, '班次1', '08:00:00', '11:50:00', '1', NULL);
+INSERT INTO `layout_shifts` VALUES (13, '班次2', '14:00:00', '17:45:00', '3', NULL);
+INSERT INTO `layout_shifts` VALUES (14, '班次3', '19:00:00', '22:00:00', '4', NULL);
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -179,21 +186,21 @@ CREATE TABLE `sys_dept`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO `sys_dept` VALUES (100, 0, '0', '若依科技', 0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (101, 100, '0,100', '深圳总公司', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (102, 100, '0,100', '长沙分公司', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (103, 101, '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (104, 101, '0,100,101', '市场部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (105, 101, '0,100,101', '测试部门', 3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
-INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', '', NULL);
+INSERT INTO `sys_dept` VALUES (100, 0, '0', '理工', 0, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:29');
+INSERT INTO `sys_dept` VALUES (101, 100, '0,100', '山东总公司', 1, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:06:57');
+INSERT INTO `sys_dept` VALUES (102, 100, '0,100', '长沙分公司', 2, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:50');
+INSERT INTO `sys_dept` VALUES (103, 101, '0,100,101', '研发部门', 1, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:06');
+INSERT INTO `sys_dept` VALUES (104, 101, '0,100,101', '市场部门', 2, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:13');
+INSERT INTO `sys_dept` VALUES (105, 101, '0,100,101', '测试部门', 3, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:38');
+INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:42');
+INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:46');
+INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:07:55');
+INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, 'ccc', '15888888888', 'ccc@qq.com', '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 15:08:00');
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -361,7 +368,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status`) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 173 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 229 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -440,6 +447,86 @@ INSERT INTO `sys_logininfor` VALUES (170, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (171, 'ry', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2025-11-29 20:58:32');
 INSERT INTO `sys_logininfor` VALUES (172, 'ry', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2025-11-29 20:59:52');
 INSERT INTO `sys_logininfor` VALUES (173, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2025-11-29 20:59:55');
+INSERT INTO `sys_logininfor` VALUES (174, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 10:29:31');
+INSERT INTO `sys_logininfor` VALUES (175, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 11:20:44');
+INSERT INTO `sys_logininfor` VALUES (176, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 11:25:02');
+INSERT INTO `sys_logininfor` VALUES (177, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 11:25:13');
+INSERT INTO `sys_logininfor` VALUES (178, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 11:25:22');
+INSERT INTO `sys_logininfor` VALUES (179, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 11:25:51');
+INSERT INTO `sys_logininfor` VALUES (180, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 11:25:54');
+INSERT INTO `sys_logininfor` VALUES (181, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 14:41:18');
+INSERT INTO `sys_logininfor` VALUES (182, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 14:41:28');
+INSERT INTO `sys_logininfor` VALUES (183, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 14:41:56');
+INSERT INTO `sys_logininfor` VALUES (184, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:40:22');
+INSERT INTO `sys_logininfor` VALUES (185, '01', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '1', '用户不存在/密码错误', '2026-01-05 15:40:28');
+INSERT INTO `sys_logininfor` VALUES (186, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:40:33');
+INSERT INTO `sys_logininfor` VALUES (187, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:41:43');
+INSERT INTO `sys_logininfor` VALUES (188, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:41:51');
+INSERT INTO `sys_logininfor` VALUES (189, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:43:05');
+INSERT INTO `sys_logininfor` VALUES (190, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:43:10');
+INSERT INTO `sys_logininfor` VALUES (191, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:43:45');
+INSERT INTO `sys_logininfor` VALUES (192, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:43:51');
+INSERT INTO `sys_logininfor` VALUES (193, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:55:48');
+INSERT INTO `sys_logininfor` VALUES (194, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:55:52');
+INSERT INTO `sys_logininfor` VALUES (195, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 15:57:04');
+INSERT INTO `sys_logininfor` VALUES (196, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 15:57:09');
+INSERT INTO `sys_logininfor` VALUES (197, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:15:14');
+INSERT INTO `sys_logininfor` VALUES (198, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:15:17');
+INSERT INTO `sys_logininfor` VALUES (199, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:15:36');
+INSERT INTO `sys_logininfor` VALUES (200, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:15:45');
+INSERT INTO `sys_logininfor` VALUES (201, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:32:23');
+INSERT INTO `sys_logininfor` VALUES (202, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:32:29');
+INSERT INTO `sys_logininfor` VALUES (203, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:32:42');
+INSERT INTO `sys_logininfor` VALUES (204, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:32:49');
+INSERT INTO `sys_logininfor` VALUES (205, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:33:08');
+INSERT INTO `sys_logininfor` VALUES (206, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:33:11');
+INSERT INTO `sys_logininfor` VALUES (207, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:33:29');
+INSERT INTO `sys_logininfor` VALUES (208, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:33:39');
+INSERT INTO `sys_logininfor` VALUES (209, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:35:04');
+INSERT INTO `sys_logininfor` VALUES (210, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:35:07');
+INSERT INTO `sys_logininfor` VALUES (211, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:35:20');
+INSERT INTO `sys_logininfor` VALUES (212, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:35:29');
+INSERT INTO `sys_logininfor` VALUES (213, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:35:42');
+INSERT INTO `sys_logininfor` VALUES (214, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:35:45');
+INSERT INTO `sys_logininfor` VALUES (215, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:36:07');
+INSERT INTO `sys_logininfor` VALUES (216, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:36:14');
+INSERT INTO `sys_logininfor` VALUES (217, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:37:48');
+INSERT INTO `sys_logininfor` VALUES (218, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:37:52');
+INSERT INTO `sys_logininfor` VALUES (219, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:38:09');
+INSERT INTO `sys_logininfor` VALUES (220, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:38:16');
+INSERT INTO `sys_logininfor` VALUES (221, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-05 16:40:39');
+INSERT INTO `sys_logininfor` VALUES (222, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-05 16:40:44');
+INSERT INTO `sys_logininfor` VALUES (223, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-06 14:57:52');
+INSERT INTO `sys_logininfor` VALUES (224, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-06 15:26:03');
+INSERT INTO `sys_logininfor` VALUES (225, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-06 15:26:13');
+INSERT INTO `sys_logininfor` VALUES (226, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-06 15:26:28');
+INSERT INTO `sys_logininfor` VALUES (227, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-06 15:26:44');
+INSERT INTO `sys_logininfor` VALUES (228, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:00:08');
+INSERT INTO `sys_logininfor` VALUES (229, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:05:05');
+INSERT INTO `sys_logininfor` VALUES (230, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:05:15');
+INSERT INTO `sys_logininfor` VALUES (231, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:06:10');
+INSERT INTO `sys_logininfor` VALUES (232, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:06:17');
+INSERT INTO `sys_logininfor` VALUES (233, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:07:02');
+INSERT INTO `sys_logininfor` VALUES (234, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '1', '验证码错误', '2026-01-07 15:07:11');
+INSERT INTO `sys_logininfor` VALUES (235, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:07:15');
+INSERT INTO `sys_logininfor` VALUES (236, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:07:47');
+INSERT INTO `sys_logininfor` VALUES (237, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:07:55');
+INSERT INTO `sys_logininfor` VALUES (238, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:09:15');
+INSERT INTO `sys_logininfor` VALUES (239, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:09:20');
+INSERT INTO `sys_logininfor` VALUES (240, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:10:54');
+INSERT INTO `sys_logininfor` VALUES (241, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:11:06');
+INSERT INTO `sys_logininfor` VALUES (242, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:11:21');
+INSERT INTO `sys_logininfor` VALUES (243, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:11:26');
+INSERT INTO `sys_logininfor` VALUES (244, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:12:25');
+INSERT INTO `sys_logininfor` VALUES (245, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:12:35');
+INSERT INTO `sys_logininfor` VALUES (246, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:12:49');
+INSERT INTO `sys_logininfor` VALUES (247, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:13:05');
+INSERT INTO `sys_logininfor` VALUES (248, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:13:11');
+INSERT INTO `sys_logininfor` VALUES (249, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:13:18');
+INSERT INTO `sys_logininfor` VALUES (250, 'admin', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:13:53');
+INSERT INTO `sys_logininfor` VALUES (251, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:14:02');
+INSERT INTO `sys_logininfor` VALUES (252, '001', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '退出成功', '2026-01-07 15:16:26');
+INSERT INTO `sys_logininfor` VALUES (253, '002', '127.0.0.1', '内网IP', 'Chrome 14', 'Windows 10', '0', '登录成功', '2026-01-07 15:16:34');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -479,9 +566,6 @@ INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/i
 INSERT INTO `sys_menu` VALUES (103, '部门管理', 1, 4, 'dept', 'system/dept/index', '', '', 1, 0, 'C', '0', '0', 'system:dept:list', 'tree', 'admin', '2025-11-24 13:10:39', '', NULL, '部门管理菜单');
 INSERT INTO `sys_menu` VALUES (104, '岗位管理', 2032, 5, 'post', 'system/post/index', '', '', 1, 0, 'C', '0', '0', 'system:post:list', 'post', 'admin', '2025-11-24 13:10:39', 'admin', '2025-11-27 19:49:00', '岗位管理菜单');
 INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2025-11-24 13:10:39', '', NULL, '通知公告菜单');
-INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2025-11-24 13:10:39', '', NULL, '日志管理菜单');
-INSERT INTO `sys_menu` VALUES (500, '操作日志', 108, 1, 'operlog', 'monitor/operlog/index', '', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list', 'form', 'admin', '2025-11-24 13:10:39', '', NULL, '操作日志菜单');
-INSERT INTO `sys_menu` VALUES (501, '登录日志', 108, 2, 'logininfor', 'monitor/logininfor/index', '', '', 1, 0, 'C', '0', '0', 'monitor:logininfor:list', 'logininfor', 'admin', '2025-11-24 13:10:39', '', NULL, '登录日志菜单');
 INSERT INTO `sys_menu` VALUES (1000, '用户查询', 100, 1, '', '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1001, '用户新增', 100, 2, '', '', '', '', 1, 0, 'F', '0', '0', 'system:user:add', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1002, '用户修改', 100, 3, '', '', '', '', 1, 0, 'F', '0', '0', 'system:user:edit', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
@@ -511,13 +595,6 @@ INSERT INTO `sys_menu` VALUES (1035, '公告查询', 107, 1, '#', '', '', '', 1,
 INSERT INTO `sys_menu` VALUES (1036, '公告新增', 107, 2, '#', '', '', '', 1, 0, 'F', '0', '0', 'system:notice:add', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1037, '公告修改', 107, 3, '#', '', '', '', 1, 0, 'F', '0', '0', 'system:notice:edit', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1038, '公告删除', 107, 4, '#', '', '', '', 1, 0, 'F', '0', '0', 'system:notice:remove', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1039, '操作查询', 500, 1, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:query', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1040, '操作删除', 500, 2, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:remove', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1041, '日志导出', 500, 3, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:export', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1042, '登录查询', 501, 1, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:query', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1043, '登录删除', 501, 2, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:remove', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1044, '日志导出', 501, 3, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:export', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1045, '账户解锁', 501, 4, '#', '', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:unlock', '#', 'admin', '2025-11-24 13:10:39', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2001, '班次管理', 0, 2, 'layout', NULL, NULL, '', 1, 0, 'M', '0', '0', '', 'druid', 'admin', '2025-11-24 23:19:21', 'admin', '2025-11-25 13:21:57', '');
 INSERT INTO `sys_menu` VALUES (2008, '员工信息', 2032, 1, 'employees', 'employees/employees/index', NULL, '', 1, 0, 'C', '0', '0', 'employees:employees:list', 'phone', 'admin', '2025-11-25 13:07:01', 'admin', '2025-11-25 13:21:01', '员工信息菜单');
 INSERT INTO `sys_menu` VALUES (2009, '员工信息查询', 2008, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'employees:employees:query', '#', 'admin', '2025-11-25 13:07:01', '', NULL, '');
@@ -544,12 +621,13 @@ INSERT INTO `sys_menu` VALUES (2029, '排班情况修改', 2026, 3, '#', '', NUL
 INSERT INTO `sys_menu` VALUES (2030, '排班情况删除', 2026, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'scheduling:scheduling:remove', '#', 'admin', '2025-11-25 13:10:22', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2031, '排班情况导出', 2026, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'scheduling:scheduling:export', '#', 'admin', '2025-11-25 13:10:22', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2032, '用户管理', 0, 1, '/layout', NULL, NULL, '', 1, 0, 'M', '0', '0', '', 'people', 'admin', '2025-11-25 13:19:56', 'admin', '2025-11-25 13:21:26', '');
-INSERT INTO `sys_menu` VALUES (2033, '通知公告', 3, 1, 'noti', 'notice/notice/index', NULL, '', 1, 0, 'C', '1', '0', 'notice:notice:list', '#', 'admin', '2025-11-29 20:59:41', 'admin', '2025-11-29 21:19:10', '通知公告菜单');
+INSERT INTO `sys_menu` VALUES (2033, '通知公告', 1, 1, 'noti', 'notice/notice/index', NULL, '', 1, 0, 'C', '1', '0', 'notice:notice:list', '#', 'admin', '2025-11-29 20:59:41', 'admin', '2026-01-05 14:51:16', '通知公告菜单');
 INSERT INTO `sys_menu` VALUES (2034, '通知公告查询', 2033, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'notice:notice:query', '#', 'admin', '2025-11-29 20:59:41', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2035, '通知公告新增', 2033, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'notice:notice:add', '#', 'admin', '2025-11-29 20:59:41', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2036, '通知公告修改', 2033, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'notice:notice:edit', '#', 'admin', '2025-11-29 20:59:41', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2037, '通知公告删除', 2033, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'notice:notice:remove', '#', 'admin', '2025-11-29 20:59:41', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2038, '通知公告导出', 2033, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'notice:notice:export', '#', 'admin', '2025-11-29 20:59:41', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2039, '替换申请审核', 2020, 6, '', NULL, NULL, '', 1, 0, 'F', '0', '0', 'requests:requests:approve', '#', 'admin', '2026-01-07 15:10:42', 'admin', '2026-01-07 15:12:21', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -567,12 +645,12 @@ CREATE TABLE `sys_notice`  (
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_notice
 -- ----------------------------
-INSERT INTO `sys_notice` VALUES (11, '测试', '2', NULL, '0', 'admin', '2025-11-29 21:21:33', '', NULL, NULL);
+INSERT INTO `sys_notice` VALUES (13, '测试1', '1', 0x3C703E3132333C2F703E, '0', 'admin', '2026-01-05 17:49:34', '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -600,7 +678,7 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type`) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status`) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 409 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 547 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -918,6 +996,149 @@ INSERT INTO `sys_oper_log` VALUES (409, '通知公告', 1, 'com.ruoyi.layout.con
 INSERT INTO `sys_oper_log` VALUES (410, '参数管理', 2, 'com.ruoyi.web.controller.system.SysConfigController.edit()', 'PUT', 1, 'admin', '计算机科学与技术学院', '/system/config', '127.0.0.1', '内网IP', '{\"configId\":1,\"configKey\":\"sys.index.skinName\",\"configName\":\"主框架页-默认皮肤样式名称\",\"configType\":\"Y\",\"configValue\":\"skin-green\",\"createBy\":\"admin\",\"createTime\":\"2025-11-24 13:10:39\",\"params\":{},\"remark\":\"蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2025-12-23 10:38:46', 23);
 INSERT INTO `sys_oper_log` VALUES (411, '参数管理', 2, 'com.ruoyi.web.controller.system.SysConfigController.edit()', 'PUT', 1, 'admin', '计算机科学与技术学院', '/system/config', '127.0.0.1', '内网IP', '{\"configId\":3,\"configKey\":\"sys.index.sideTheme\",\"configName\":\"主框架页-侧边栏主题\",\"configType\":\"Y\",\"configValue\":\"theme-light\",\"createBy\":\"admin\",\"createTime\":\"2025-11-24 13:10:39\",\"params\":{},\"remark\":\"深色主题theme-dark，浅色主题theme-light\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2025-12-23 10:39:05', 13);
 INSERT INTO `sys_oper_log` VALUES (412, '参数管理', 9, 'com.ruoyi.web.controller.system.SysConfigController.refreshCache()', 'DELETE', 1, 'admin', '计算机科学与技术学院', '/system/config/refreshCache', '127.0.0.1', '内网IP', '', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2025-12-23 10:39:07', 10);
+INSERT INTO `sys_oper_log` VALUES (413, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0\",\"children\":[],\"deptId\":100,\"deptName\":\"总公司\",\"email\":\"ry@qq.com\",\"leader\":\"ccc\",\"orderNum\":0,\"params\":{},\"parentId\":0,\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 10:35:16', 16);
+INSERT INTO `sys_oper_log` VALUES (414, '员工信息', 2, 'com.ruoyi.system.controller.LayoutEmployeesController.edit()', 'PUT', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":103,\"hireDate\":\"2025-11-26\",\"id\":17,\"params\":{},\"userId\":1,\"weekendPreference\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 11:16:45', 20);
+INSERT INTO `sys_oper_log` VALUES (415, '员工信息', 2, 'com.ruoyi.system.controller.LayoutEmployeesController.edit()', 'PUT', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":103,\"hireDate\":\"2025-11-26\",\"id\":17,\"params\":{},\"userId\":1,\"weekendPreference\":\"0\",\"workHoursPerWeek\":12}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 11:29:21', 16);
+INSERT INTO `sys_oper_log` VALUES (416, '员工信息', 2, 'com.ruoyi.system.controller.LayoutEmployeesController.edit()', 'PUT', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":103,\"hireDate\":\"2025-11-26\",\"id\":17,\"maxConsecutiveDays\":12,\"params\":{},\"userId\":1,\"weekendPreference\":\"0\",\"workHoursPerWeek\":12}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 11:33:04', 5);
+INSERT INTO `sys_oper_log` VALUES (417, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"notice/notice/index\",\"createTime\":\"2025-11-29 20:59:41\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2033,\"menuName\":\"通知公告\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":3,\"path\":\"notice\",\"perms\":\"notice:notice:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 14:50:52', 25);
+INSERT INTO `sys_oper_log` VALUES (418, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"notice/notice/index\",\"createTime\":\"2025-11-29 20:59:41\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2033,\"menuName\":\"通知公告\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":3,\"path\":\"noti\",\"perms\":\"notice:notice:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 14:51:16', 6);
+INSERT INTO `sys_oper_log` VALUES (419, '员工信息', 2, 'com.ruoyi.system.controller.LayoutEmployeesController.edit()', 'PUT', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":103,\"hireDate\":\"2025-11-26\",\"id\":17,\"maxConsecutiveDays\":12,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/屏幕截图 2025-02-06 191325_20260105145859A004.jpg\",\"userId\":1,\"weekendPreference\":\"0\",\"workHoursPerWeek\":12}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 14:59:02', 8);
+INSERT INTO `sys_oper_log` VALUES (420, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100\",\"children\":[],\"deptId\":101,\"deptName\":\"山东总公司\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":1,\"params\":{},\"parentId\":100,\"parentName\":\"总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:06:57', 19);
+INSERT INTO `sys_oper_log` VALUES (421, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0\",\"children\":[],\"deptId\":100,\"deptName\":\"总公司\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":0,\"params\":{},\"parentId\":0,\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:01', 10);
+INSERT INTO `sys_oper_log` VALUES (422, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":103,\"deptName\":\"研发部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":1,\"params\":{},\"parentId\":101,\"parentName\":\"山东总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:06', 11);
+INSERT INTO `sys_oper_log` VALUES (423, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":104,\"deptName\":\"市场部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":2,\"params\":{},\"parentId\":101,\"parentName\":\"山东总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:13', 8);
+INSERT INTO `sys_oper_log` VALUES (424, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0\",\"children\":[],\"deptId\":100,\"deptName\":\"理工\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":0,\"params\":{},\"parentId\":0,\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:29', 14);
+INSERT INTO `sys_oper_log` VALUES (425, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":105,\"deptName\":\"测试部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":3,\"params\":{},\"parentId\":101,\"parentName\":\"山东总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:38', 2);
+INSERT INTO `sys_oper_log` VALUES (426, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":106,\"deptName\":\"财务部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":4,\"params\":{},\"parentId\":101,\"parentName\":\"山东总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:42', 10);
+INSERT INTO `sys_oper_log` VALUES (427, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":107,\"deptName\":\"运维部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":5,\"params\":{},\"parentId\":101,\"parentName\":\"山东总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:46', 13);
+INSERT INTO `sys_oper_log` VALUES (428, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100\",\"children\":[],\"deptId\":102,\"deptName\":\"长沙分公司\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":2,\"params\":{},\"parentId\":100,\"parentName\":\"理工\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:50', 10);
+INSERT INTO `sys_oper_log` VALUES (429, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,102\",\"children\":[],\"deptId\":108,\"deptName\":\"市场部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":1,\"params\":{},\"parentId\":102,\"parentName\":\"长沙分公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:07:55', 8);
+INSERT INTO `sys_oper_log` VALUES (430, '部门管理', 2, 'com.ruoyi.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,102\",\"children\":[],\"deptId\":109,\"deptName\":\"财务部门\",\"email\":\"ccc@qq.com\",\"leader\":\"ccc\",\"orderNum\":2,\"params\":{},\"parentId\":102,\"parentName\":\"长沙分公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:08:00', 10);
+INSERT INTO `sys_oper_log` VALUES (431, '通知公告', 2, 'com.ruoyi.web.controller.system.SysNoticeController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"createTime\":\"2025-11-29 21:21:33\",\"noticeContent\":\"<p>123123</p>\",\"noticeId\":11,\"noticeTitle\":\"测试\",\"noticeType\":\"2\",\"params\":{},\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:08:16', 10);
+INSERT INTO `sys_oper_log` VALUES (432, '通知公告', 1, 'com.ruoyi.web.controller.system.SysNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/system/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"noticeContent\":\"<p>123123</p>\",\"noticeTitle\":\"测试2\",\"noticeType\":\"2\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:15:08', 7);
+INSERT INTO `sys_oper_log` VALUES (433, '用户管理', 2, 'com.ruoyi.web.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"avatar\":\"\",\"createBy\":\"admin\",\"createTime\":\"2025-11-24 13:10:39\",\"delFlag\":\"0\",\"dept\":{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":105,\"deptName\":\"测试部门\",\"leader\":\"ccc\",\"orderNum\":3,\"params\":{},\"parentId\":101,\"status\":\"0\"},\"deptId\":105,\"email\":\"01@qq.com\",\"loginDate\":\"2025-11-29 20:58:33\",\"loginIp\":\"127.0.0.1\",\"nickName\":\"01\",\"params\":{},\"phonenumber\":\"15666666666\",\"postIds\":[2],\"pwdUpdateDate\":\"2025-11-24 13:10:39\",\"remark\":\"测试员\",\"roleIds\":[100],\"roles\":[{\"admin\":false,\"dataScope\":\"1\",\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"params\":{},\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\"}],\"sex\":\"1\",\"status\":\"0\",\"updateBy\":\"admin\",\"userId\":2,\"userName\":\"ry\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:16:33', 42);
+INSERT INTO `sys_oper_log` VALUES (434, '用户管理', 2, 'com.ruoyi.web.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"avatar\":\"\",\"createBy\":\"admin\",\"createTime\":\"2025-11-26 13:31:52\",\"delFlag\":\"0\",\"deptId\":106,\"email\":\"\",\"loginIp\":\"\",\"nickName\":\"02\",\"params\":{},\"phonenumber\":\"\",\"postIds\":[4],\"roleIds\":[2],\"roles\":[],\"sex\":\"0\",\"status\":\"0\",\"updateBy\":\"admin\",\"userId\":101,\"userName\":\"222\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:16:52', 9);
+INSERT INTO `sys_oper_log` VALUES (435, '用户管理', 1, 'com.ruoyi.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptId\":108,\"nickName\":\"03\",\"params\":{},\"postIds\":[],\"roleIds\":[2],\"status\":\"0\",\"userId\":103,\"userName\":\"003\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:18:27', 82);
+INSERT INTO `sys_oper_log` VALUES (436, '用户管理', 1, 'com.ruoyi.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptId\":101,\"nickName\":\"04\",\"params\":{},\"postIds\":[3],\"roleIds\":[2],\"status\":\"0\",\"userId\":104,\"userName\":\"004\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:18:50', 68);
+INSERT INTO `sys_oper_log` VALUES (437, '用户管理', 1, 'com.ruoyi.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptId\":105,\"nickName\":\"05\",\"params\":{},\"phonenumber\":\"\",\"postIds\":[2],\"roleIds\":[2],\"status\":\"0\",\"userId\":105,\"userName\":\"005\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:19:10', 70);
+INSERT INTO `sys_oper_log` VALUES (438, '用户管理', 1, 'com.ruoyi.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"06\",\"params\":{},\"postIds\":[1],\"roleIds\":[2],\"status\":\"0\",\"userId\":106,\"userName\":\"006\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:19:28', 72);
+INSERT INTO `sys_oper_log` VALUES (439, '用户管理', 2, 'com.ruoyi.web.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"avatar\":\"\",\"createBy\":\"admin\",\"createTime\":\"2026-01-05 15:19:28\",\"delFlag\":\"0\",\"deptId\":102,\"email\":\"\",\"loginIp\":\"\",\"nickName\":\"06\",\"params\":{},\"phonenumber\":\"\",\"postIds\":[1],\"roleIds\":[2],\"roles\":[{\"admin\":false,\"dataScope\":\"1\",\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"params\":{},\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\"}],\"sex\":\"0\",\"status\":\"0\",\"updateBy\":\"admin\",\"userId\":106,\"userName\":\"006\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:19:36', 13);
+INSERT INTO `sys_oper_log` VALUES (440, '用户管理', 1, 'com.ruoyi.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', '研发部门', '/system/user', '127.0.0.1', '内网IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptId\":107,\"nickName\":\"07\",\"params\":{},\"postIds\":[4],\"roleIds\":[2],\"status\":\"0\",\"userId\":107,\"userName\":\"007\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:19:52', 78);
+INSERT INTO `sys_oper_log` VALUES (441, '员工信息', 3, 'com.ruoyi.system.controller.LayoutEmployeesController.remove()', 'DELETE', 1, 'admin', '研发部门', '/employees/employees/17', '127.0.0.1', '内网IP', '[17]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:20:17', 2);
+INSERT INTO `sys_oper_log` VALUES (442, '员工信息', 3, 'com.ruoyi.system.controller.LayoutEmployeesController.remove()', 'DELETE', 1, 'admin', '研发部门', '/employees/employees/20', '127.0.0.1', '内网IP', '[20]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:20:19', 0);
+INSERT INTO `sys_oper_log` VALUES (443, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":103,\"hireDate\":\"2026-01-05\",\"id\":21,\"maxConsecutiveDays\":6,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152032A005.jpg\",\"userId\":1,\"weekendPreference\":\"0\",\"workHoursPerWeek\":60}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:20:47', 0);
+INSERT INTO `sys_oper_log` VALUES (444, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":106,\"hireDate\":\"2026-01-04\",\"id\":22,\"maxConsecutiveDays\":7,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152157A006.jpg\",\"userId\":101,\"weekendPreference\":\"0\",\"workHoursPerWeek\":60}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:22:13', 0);
+INSERT INTO `sys_oper_log` VALUES (445, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":108,\"hireDate\":\"2026-01-05\",\"id\":23,\"maxConsecutiveDays\":6,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152222A007.jpg\",\"userId\":103,\"weekendPreference\":\"1\",\"workHoursPerWeek\":60}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:22:32', 3);
+INSERT INTO `sys_oper_log` VALUES (446, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":101,\"hireDate\":\"2026-01-05\",\"id\":24,\"maxConsecutiveDays\":5,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152240A008.jpg\",\"userId\":104,\"weekendPreference\":\"0\",\"workHoursPerWeek\":60}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:23:36', 4);
+INSERT INTO `sys_oper_log` VALUES (447, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":105,\"hireDate\":\"2026-01-05\",\"id\":25,\"maxConsecutiveDays\":6,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152344A009.jpg\",\"userId\":105,\"weekendPreference\":\"0\",\"workHoursPerWeek\":66}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:23:52', 1);
+INSERT INTO `sys_oper_log` VALUES (448, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":102,\"hireDate\":\"2026-01-07\",\"id\":26,\"maxConsecutiveDays\":6,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152404A010.jpg\",\"userId\":106,\"weekendPreference\":\"1\",\"workHoursPerWeek\":66}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:24:13', 8);
+INSERT INTO `sys_oper_log` VALUES (449, '员工信息', 1, 'com.ruoyi.system.controller.LayoutEmployeesController.add()', 'POST', 1, 'admin', '研发部门', '/employees/employees', '127.0.0.1', '内网IP', '{\"departmentId\":107,\"hireDate\":\"2026-01-05\",\"id\":27,\"maxConsecutiveDays\":6,\"params\":{},\"picture\":\"/profile/upload/2026/01/05/微信图片_20251222163313_20260105152422A011.jpg\",\"userId\":107,\"weekendPreference\":\"1\",\"workHoursPerWeek\":66}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:24:28', 4);
+INSERT INTO `sys_oper_log` VALUES (450, '班次情况', 3, 'com.ruoyi.layout.controller.LayoutShiftsController.remove()', 'DELETE', 1, 'admin', '研发部门', '/shifts/shifts/9,10,11', '127.0.0.1', '内网IP', '[9,10,11]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:24:39', 0);
+INSERT INTO `sys_oper_log` VALUES (451, '班次情况', 1, 'com.ruoyi.layout.controller.LayoutShiftsController.add()', 'POST', 1, 'admin', '研发部门', '/shifts/shifts', '127.0.0.1', '内网IP', '{\"endtime\":\"11:50\",\"params\":{},\"shiftName\":\"班次1\",\"shiftType\":\"1\",\"starttime\":\"08:00\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:25:07', 11);
+INSERT INTO `sys_oper_log` VALUES (452, '班次情况', 1, 'com.ruoyi.layout.controller.LayoutShiftsController.add()', 'POST', 1, 'admin', '研发部门', '/shifts/shifts', '127.0.0.1', '内网IP', '{\"endtime\":\"17:45\",\"params\":{},\"shiftName\":\"班次2\",\"shiftType\":\"3\",\"starttime\":\"14:00\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:25:55', 5);
+INSERT INTO `sys_oper_log` VALUES (453, '班次情况', 1, 'com.ruoyi.layout.controller.LayoutShiftsController.add()', 'POST', 1, 'admin', '研发部门', '/shifts/shifts', '127.0.0.1', '内网IP', '{\"endtime\":\"22:00\",\"params\":{},\"shiftName\":\"班次3\",\"shiftType\":\"4\",\"starttime\":\"19:00\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:26:20', 0);
+INSERT INTO `sys_oper_log` VALUES (454, '排班情况', 3, 'com.ruoyi.layout.controller.LayoutSchedulingController.remove()', 'DELETE', 1, 'admin', '研发部门', '/scheduling/scheduling/1', '127.0.0.1', '内网IP', '[1]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:26:34', 0);
+INSERT INTO `sys_oper_log` VALUES (455, '排班情况', 3, 'com.ruoyi.layout.controller.LayoutSchedulingController.remove()', 'DELETE', 1, 'admin', '研发部门', '/scheduling/scheduling/4', '127.0.0.1', '内网IP', '[4]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:26:38', 5);
+INSERT INTO `sys_oper_log` VALUES (456, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:26:58', 8);
+INSERT INTO `sys_oper_log` VALUES (457, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":13,\"status\":\"2\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:27:13', 0);
+INSERT INTO `sys_oper_log` VALUES (458, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":12,\"status\":\"2\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:28:14', 4);
+INSERT INTO `sys_oper_log` VALUES (459, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-04\",\"shiftId\":13,\"status\":\"2\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:28:17', 5);
+INSERT INTO `sys_oper_log` VALUES (460, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-05\",\"shiftId\":12,\"status\":\"2\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:28:21', 5);
+INSERT INTO `sys_oper_log` VALUES (461, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":14,\"status\":\"2\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:28', 0);
+INSERT INTO `sys_oper_log` VALUES (462, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":14,\"status\":\"2\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:31', 4);
+INSERT INTO `sys_oper_log` VALUES (463, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-04\",\"shiftId\":14,\"status\":\"2\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:33', 6);
+INSERT INTO `sys_oper_log` VALUES (464, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-05\",\"shiftId\":14,\"status\":\"2\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:36', 0);
+INSERT INTO `sys_oper_log` VALUES (465, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-06\",\"shiftId\":14,\"status\":\"2\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:39', 5);
+INSERT INTO `sys_oper_log` VALUES (466, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":14,\"status\":\"2\",\"userId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:42', 8);
+INSERT INTO `sys_oper_log` VALUES (467, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":13,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:30:46', 0);
+INSERT INTO `sys_oper_log` VALUES (468, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":12,\"status\":\"2\",\"userId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:31:06', 4);
+INSERT INTO `sys_oper_log` VALUES (469, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":12,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:31:17', 5);
+INSERT INTO `sys_oper_log` VALUES (470, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-04\",\"shiftId\":13,\"status\":\"2\",\"userId\":106}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:31:24', 5);
+INSERT INTO `sys_oper_log` VALUES (471, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-06\",\"shiftId\":12,\"status\":\"2\",\"userId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:31:56', 5);
+INSERT INTO `sys_oper_log` VALUES (472, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"2\",\"userId\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:32:12', 5);
+INSERT INTO `sys_oper_log` VALUES (473, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-04\",\"shiftId\":13,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:32', 8);
+INSERT INTO `sys_oper_log` VALUES (474, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-07\",\"shiftId\":12,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:42', 4);
+INSERT INTO `sys_oper_log` VALUES (475, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-08\",\"shiftId\":12,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:45', 5);
+INSERT INTO `sys_oper_log` VALUES (476, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-05\",\"shiftId\":13,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:51', 0);
+INSERT INTO `sys_oper_log` VALUES (477, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-06\",\"shiftId\":13,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:53', 4);
+INSERT INTO `sys_oper_log` VALUES (478, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":13,\"status\":\"2\",\"userId\":105}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:56', 4);
+INSERT INTO `sys_oper_log` VALUES (479, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":13,\"status\":\"2\",\"userId\":106}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:38:58', 4);
+INSERT INTO `sys_oper_log` VALUES (480, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":14,\"status\":\"2\",\"userId\":106}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:39:02', 5);
+INSERT INTO `sys_oper_log` VALUES (481, '替换申请', 3, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.remove()', 'DELETE', 1, 'admin', '研发部门', '/requests/requests/7,8', '127.0.0.1', '内网IP', '[7,8]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:39:17', 5);
+INSERT INTO `sys_oper_log` VALUES (482, '替换申请', 1, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.add()', 'POST', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requestedShiftId\":21,\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":6,\"targetId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:01', 8);
+INSERT INTO `sys_oper_log` VALUES (483, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createTime\":\"2026-01-05 15:40:02\",\"noticeContent\":\"您的换班申请已成功提交，请等待管理员审批。\",\"noticeId\":13,\"noticeTitle\":\"换班申请已提交\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:02', 7);
+INSERT INTO `sys_oper_log` VALUES (484, '替换申请', 1, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.add()', 'POST', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"model\":1,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":12,\"targetId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:13', 5);
+INSERT INTO `sys_oper_log` VALUES (485, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createTime\":\"2026-01-05 15:40:13\",\"noticeContent\":\"您的换班申请已成功提交，请等待管理员审批。\",\"noticeId\":14,\"noticeTitle\":\"换班申请已提交\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:13', 4);
+INSERT INTO `sys_oper_log` VALUES (486, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":9,\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:19', 7);
+INSERT INTO `sys_oper_log` VALUES (487, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createTime\":\"2026-01-05 15:40:19\",\"noticeContent\":\"您的换班申请已已批准。申请人：admin(ccc)，申请类型：换班\",\"noticeId\":15,\"noticeTitle\":\"换班申请审核结果\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:40:19', 5);
+INSERT INTO `sys_oper_log` VALUES (488, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,1012,1013,1014,1015,1016,1017,1018,1019,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2008,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:43:43', 19);
+INSERT INTO `sys_oper_log` VALUES (489, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,1012,1013,1014,1015,1016,1017,1018,1019,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2008,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2029,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:57:01', 10);
+INSERT INTO `sys_oper_log` VALUES (490, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:57:16', 4);
+INSERT INTO `sys_oper_log` VALUES (491, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:57:17', 1);
+INSERT INTO `sys_oper_log` VALUES (492, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:57:21', 0);
+INSERT INTO `sys_oper_log` VALUES (493, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:57:36', 2);
+INSERT INTO `sys_oper_log` VALUES (494, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:58:28', 2);
+INSERT INTO `sys_oper_log` VALUES (495, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 15:58:31', 2);
+INSERT INTO `sys_oper_log` VALUES (496, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:03:57', 3);
+INSERT INTO `sys_oper_log` VALUES (497, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:03:58', 6);
+INSERT INTO `sys_oper_log` VALUES (498, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:04:01', 5);
+INSERT INTO `sys_oper_log` VALUES (499, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:04:03', 0);
+INSERT INTO `sys_oper_log` VALUES (500, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:11:05', 0);
+INSERT INTO `sys_oper_log` VALUES (501, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:11:11', 2);
+INSERT INTO `sys_oper_log` VALUES (502, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:14:37', 5);
+INSERT INTO `sys_oper_log` VALUES (503, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:14:42', 2);
+INSERT INTO `sys_oper_log` VALUES (504, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:14:45', 0);
+INSERT INTO `sys_oper_log` VALUES (505, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:14:53', 2);
+INSERT INTO `sys_oper_log` VALUES (506, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:18:28', 9);
+INSERT INTO `sys_oper_log` VALUES (507, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:21:30', 6);
+INSERT INTO `sys_oper_log` VALUES (508, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:21:33', 0);
+INSERT INTO `sys_oper_log` VALUES (509, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":6,\"params\":{},\"scheduleDate\":\"2026-01-02\",\"shiftId\":13,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:21:47', 5);
+INSERT INTO `sys_oper_log` VALUES (510, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:21:52', 0);
+INSERT INTO `sys_oper_log` VALUES (511, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":5,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:23:32', 4);
+INSERT INTO `sys_oper_log` VALUES (512, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":7,\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:25:33', 49);
+INSERT INTO `sys_oper_log` VALUES (513, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":8,\"params\":{},\"scheduleDate\":\"2026-01-04\",\"shiftId\":13,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:25:38', 6);
+INSERT INTO `sys_oper_log` VALUES (514, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '002', '财务部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":9,\"params\":{},\"scheduleDate\":\"2026-01-05\",\"shiftId\":12,\"status\":\"0\",\"userId\":101}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:32:19', 7);
+INSERT INTO `sys_oper_log` VALUES (515, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,1012,1013,1014,1015,1016,1017,1018,1019,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2029,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:33:27', 82);
+INSERT INTO `sys_oper_log` VALUES (516, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,1012,1013,1014,1015,1016,1017,1018,1019,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2008,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2029,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:35:18', 12);
+INSERT INTO `sys_oper_log` VALUES (517, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2033,2034,2035,2036,2037,2038,1012,1013,1014,1015,1016,1017,1018,1019,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2008,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2029,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:36:04', 13);
+INSERT INTO `sys_oper_log` VALUES (518, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-24 13:10:39\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2033,2034,2035,2036,2037,2038,1012,1013,1014,1015,103,1016,107,1035,1036,1037,1038,500,1039,1040,1041,501,1042,1043,1044,1045,2032,100,1000,1004,2008,2009,1007,1008,1009,1010,1011,104,1020,1024,2001,2014,2015,2019,2026,2027,2029,2031,2020,2021,2022,2025],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通员工\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:38:07', 11);
+INSERT INTO `sys_oper_log` VALUES (519, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":21,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 16:41:15', 5);
+INSERT INTO `sys_oper_log` VALUES (520, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/11,12,14,13,15', '127.0.0.1', '内网IP', '[11,12,14,13,15]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:00:02', 42);
+INSERT INTO `sys_oper_log` VALUES (521, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/11,12,13,14,15', '127.0.0.1', '内网IP', '[11,12,13,14,15]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:00:14', 3);
+INSERT INTO `sys_oper_log` VALUES (522, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/11,12,13,14,15', '127.0.0.1', '内网IP', '[11,12,13,14,15]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:00:17', 2);
+INSERT INTO `sys_oper_log` VALUES (523, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/11,12,13,14,15', '127.0.0.1', '内网IP', '[11,12,13,14,15]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:04:02', 3);
+INSERT INTO `sys_oper_log` VALUES (524, '替换申请', 3, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.remove()', 'DELETE', 1, 'admin', '研发部门', '/requests/requests/9', '127.0.0.1', '内网IP', '[9]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:25:02', 6);
+INSERT INTO `sys_oper_log` VALUES (525, '替换申请', 3, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.remove()', 'DELETE', 1, 'admin', '研发部门', '/requests/requests/10', '127.0.0.1', '内网IP', '[10]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:25:04', 5);
+INSERT INTO `sys_oper_log` VALUES (526, '替换申请', 1, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.add()', 'POST', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requestedShiftId\":21,\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":11,\"targetId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:25:17', 6);
+INSERT INTO `sys_oper_log` VALUES (527, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":11,\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:25:38', 6);
+INSERT INTO `sys_oper_log` VALUES (528, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"1\",\"createTime\":\"2026-01-05 17:25:38\",\"noticeContent\":\"您的换班申请已已批准。申请人：admin(ccc)，申请类型：换班\",\"noticeId\":16,\"noticeTitle\":\"换班申请审核结果\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:25:38', 5);
+INSERT INTO `sys_oper_log` VALUES (529, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":11,\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requestedShiftId\":21,\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":11,\"targetId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:10', 5);
+INSERT INTO `sys_oper_log` VALUES (530, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":11,\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:16', 3);
+INSERT INTO `sys_oper_log` VALUES (531, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"1\",\"createTime\":\"2026-01-05 17:31:16\",\"noticeContent\":\"您的换班申请已已批准。申请人：admin(ccc)，申请类型：换班\",\"noticeId\":17,\"noticeTitle\":\"换班申请审核结果\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:16', 4);
+INSERT INTO `sys_oper_log` VALUES (532, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":11,\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requestedShiftId\":21,\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":11,\"targetId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:26', 4);
+INSERT INTO `sys_oper_log` VALUES (533, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-05\",\"approvedBy\":1,\"id\":11,\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:30', 4);
+INSERT INTO `sys_oper_log` VALUES (534, '通知公告', 1, 'com.ruoyi.layout.controller.LayoutNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/notice/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"1\",\"createTime\":\"2026-01-05 17:31:30\",\"noticeContent\":\"您的换班申请已已批准。申请人：admin(ccc)，申请类型：换班\",\"noticeId\":18,\"noticeTitle\":\"换班申请审核结果\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:30', 4);
+INSERT INTO `sys_oper_log` VALUES (535, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":21,\"params\":{},\"scheduleDate\":\"2026-01-01\",\"shiftId\":12,\"status\":\"0\",\"userId\":103}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:31', 4);
+INSERT INTO `sys_oper_log` VALUES (536, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":11,\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":14,\"status\":\"2\",\"userId\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:31:31', 4);
+INSERT INTO `sys_oper_log` VALUES (537, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:33:49', 10);
+INSERT INTO `sys_oper_log` VALUES (538, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:34:02', 1);
+INSERT INTO `sys_oper_log` VALUES (539, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:39:46', 2);
+INSERT INTO `sys_oper_log` VALUES (540, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:39:51', 2);
+INSERT INTO `sys_oper_log` VALUES (541, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:39:53', 2);
+INSERT INTO `sys_oper_log` VALUES (542, '通知公告', 3, 'com.ruoyi.web.controller.system.SysNoticeController.remove()', 'DELETE', 1, 'admin', '研发部门', '/system/notice/16,17,18', '127.0.0.1', '内网IP', '[16,17,18]', '{\"msg\":\"操作失败\",\"code\":500}', 0, NULL, '2026-01-05 17:39:55', 2);
+INSERT INTO `sys_oper_log` VALUES (543, '通知公告', 1, 'com.ruoyi.web.controller.system.SysNoticeController.add()', 'POST', 1, 'admin', '研发部门', '/system/notice', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"noticeContent\":\"<p>123</p>\",\"noticeTitle\":\"测试1\",\"noticeType\":\"1\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:49:34', 47);
+INSERT INTO `sys_oper_log` VALUES (544, '替换申请', 1, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.add()', 'POST', 1, 'admin', '研发部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-05\",\"requestedShiftId\":11,\"requesterId\":1,\"status\":\"0\",\"swappedShiftId\":20,\"targetId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-05 17:49:49', 9);
+INSERT INTO `sys_oper_log` VALUES (545, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":11,\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":14,\"status\":\"0\",\"userId\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-06 15:07:15', 49);
+INSERT INTO `sys_oper_log` VALUES (546, '排班情况', 1, 'com.ruoyi.layout.controller.LayoutSchedulingController.add()', 'POST', 1, 'admin', '研发部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"params\":{},\"scheduleDate\":\"2026-01-06\",\"shiftId\":13,\"status\":\"2\",\"userId\":106}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-06 15:07:21', 5);
+INSERT INTO `sys_oper_log` VALUES (547, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-28 12:38:33\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,103,1016,107,1035,1036,1037,1038,2032,100,1000,1004,2008,2009,2013,101,1007,1011,104,1020,1024,2001,2014,2015,2016,2017,2018,2019,2026,2027,2028,2029,2030,2031,2020,2021,2022,2023,2024,2025],\"params\":{},\"roleId\":100,\"roleKey\":\"leader\",\"roleName\":\"排班员\",\"roleSort\":3,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:06:59', 31);
+INSERT INTO `sys_oper_log` VALUES (548, '替换申请', 1, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.add()', 'POST', 1, '002', '财务部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"model\":0,\"params\":{},\"reason\":\"123\",\"requestDate\":\"2026-01-07\",\"requestedShiftId\":5,\"requesterId\":101,\"status\":\"0\",\"swappedShiftId\":17,\"targetId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:07:43', 11);
+INSERT INTO `sys_oper_log` VALUES (549, '菜单管理', 1, 'com.ruoyi.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"替换申请审核\",\"menuType\":\"F\",\"orderNum\":6,\"params\":{},\"parentId\":2020,\"perms\":\"requests:requests:approve\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:10:42', 6);
+INSERT INTO `sys_oper_log` VALUES (550, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-28 12:38:33\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,103,1016,107,1035,1036,1037,1038,2032,100,1000,1004,2008,2009,2013,101,1007,1011,104,1020,1024,2001,2014,2015,2016,2017,2018,2019,2026,2027,2028,2029,2030,2031,2020,2021,2022,2023,2024,2025,2039],\"params\":{},\"roleId\":100,\"roleKey\":\"leader\",\"roleName\":\"排班员\",\"roleSort\":3,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:10:52', 17);
+INSERT INTO `sys_oper_log` VALUES (551, '角色管理', 2, 'com.ruoyi.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/role', '127.0.0.1', '内网IP', '{\"admin\":false,\"createTime\":\"2025-11-28 12:38:33\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[1,2034,2035,2036,2037,2038,103,1016,107,1035,1036,1037,1038,2032,100,1000,1004,2008,2009,2013,101,1007,1011,104,1020,1024,2001,2014,2015,2016,2017,2018,2019,2026,2027,2028,2029,2030,2031,2020,2021,2022,2023,2024,2025,2039],\"params\":{},\"roleId\":100,\"roleKey\":\"leader\",\"roleName\":\"排班员\",\"roleSort\":3,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:12:03', 12);
+INSERT INTO `sys_oper_log` VALUES (552, '菜单管理', 2, 'com.ruoyi.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', '研发部门', '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2026-01-07 15:10:42\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2039,\"menuName\":\"替换申请审核\",\"menuType\":\"F\",\"orderNum\":6,\"params\":{},\"parentId\":2020,\"path\":\"\",\"perms\":\"requests:requests:approve\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:12:21', 6);
+INSERT INTO `sys_oper_log` VALUES (553, '替换申请', 2, 'com.ruoyi.layout.controller.LayoutShiftSwapRequestsController.edit()', 'PUT', 1, '001', '测试部门', '/requests/requests', '127.0.0.1', '内网IP', '{\"approvedAt\":\"2026-01-07\",\"approvedBy\":2,\"id\":12,\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:15:54', 5);
+INSERT INTO `sys_oper_log` VALUES (554, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '001', '测试部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":20,\"params\":{},\"scheduleDate\":\"2026-01-06\",\"shiftId\":12,\"status\":\"2\",\"userId\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:15:54', 11);
+INSERT INTO `sys_oper_log` VALUES (555, '排班情况', 2, 'com.ruoyi.layout.controller.LayoutSchedulingController.edit()', 'PUT', 1, '001', '测试部门', '/scheduling/scheduling', '127.0.0.1', '内网IP', '{\"id\":11,\"params\":{},\"scheduleDate\":\"2026-01-03\",\"shiftId\":14,\"status\":\"0\",\"userId\":104}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-01-07 15:15:54', 11);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -965,13 +1186,13 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (2, '普通员工', 'common', 2, '1', 0, 1, '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2025-11-29 21:01:38', '普通角色');
-INSERT INTO `sys_role` VALUES (100, '排班员', 'leader', 3, '1', 0, 1, '0', '0', 'admin', '2025-11-28 12:38:33', 'admin', '2025-11-29 21:01:35', NULL);
+INSERT INTO `sys_role` VALUES (2, '普通员工', 'common', 2, '1', 0, 1, '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-05 16:38:07', '普通角色');
+INSERT INTO `sys_role` VALUES (100, '排班员', 'leader', 3, '1', 0, 1, '0', '0', 'admin', '2025-11-28 12:38:33', 'admin', '2026-01-07 15:12:03', NULL);
 INSERT INTO `sys_role` VALUES (101, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2025-11-24 13:10:39', 'admin', '2025-11-29 21:01:07', '管理员');
 
 -- ----------------------------
@@ -998,17 +1219,14 @@ CREATE TABLE `sys_role_menu`  (
 -- Records of sys_role_menu
 -- ----------------------------
 INSERT INTO `sys_role_menu` VALUES (2, 1);
+INSERT INTO `sys_role_menu` VALUES (2, 100);
+INSERT INTO `sys_role_menu` VALUES (2, 103);
 INSERT INTO `sys_role_menu` VALUES (2, 104);
 INSERT INTO `sys_role_menu` VALUES (2, 107);
 INSERT INTO `sys_role_menu` VALUES (2, 500);
 INSERT INTO `sys_role_menu` VALUES (2, 501);
 INSERT INTO `sys_role_menu` VALUES (2, 1000);
-INSERT INTO `sys_role_menu` VALUES (2, 1001);
-INSERT INTO `sys_role_menu` VALUES (2, 1002);
-INSERT INTO `sys_role_menu` VALUES (2, 1003);
 INSERT INTO `sys_role_menu` VALUES (2, 1004);
-INSERT INTO `sys_role_menu` VALUES (2, 1005);
-INSERT INTO `sys_role_menu` VALUES (2, 1006);
 INSERT INTO `sys_role_menu` VALUES (2, 1007);
 INSERT INTO `sys_role_menu` VALUES (2, 1008);
 INSERT INTO `sys_role_menu` VALUES (2, 1009);
@@ -1019,21 +1237,8 @@ INSERT INTO `sys_role_menu` VALUES (2, 1013);
 INSERT INTO `sys_role_menu` VALUES (2, 1014);
 INSERT INTO `sys_role_menu` VALUES (2, 1015);
 INSERT INTO `sys_role_menu` VALUES (2, 1016);
-INSERT INTO `sys_role_menu` VALUES (2, 1017);
-INSERT INTO `sys_role_menu` VALUES (2, 1018);
-INSERT INTO `sys_role_menu` VALUES (2, 1019);
 INSERT INTO `sys_role_menu` VALUES (2, 1020);
 INSERT INTO `sys_role_menu` VALUES (2, 1024);
-INSERT INTO `sys_role_menu` VALUES (2, 1025);
-INSERT INTO `sys_role_menu` VALUES (2, 1026);
-INSERT INTO `sys_role_menu` VALUES (2, 1027);
-INSERT INTO `sys_role_menu` VALUES (2, 1028);
-INSERT INTO `sys_role_menu` VALUES (2, 1029);
-INSERT INTO `sys_role_menu` VALUES (2, 1030);
-INSERT INTO `sys_role_menu` VALUES (2, 1031);
-INSERT INTO `sys_role_menu` VALUES (2, 1032);
-INSERT INTO `sys_role_menu` VALUES (2, 1033);
-INSERT INTO `sys_role_menu` VALUES (2, 1034);
 INSERT INTO `sys_role_menu` VALUES (2, 1035);
 INSERT INTO `sys_role_menu` VALUES (2, 1036);
 INSERT INTO `sys_role_menu` VALUES (2, 1037);
@@ -1045,12 +1250,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 1042);
 INSERT INTO `sys_role_menu` VALUES (2, 1043);
 INSERT INTO `sys_role_menu` VALUES (2, 1044);
 INSERT INTO `sys_role_menu` VALUES (2, 1045);
-INSERT INTO `sys_role_menu` VALUES (2, 1055);
-INSERT INTO `sys_role_menu` VALUES (2, 1056);
-INSERT INTO `sys_role_menu` VALUES (2, 1057);
-INSERT INTO `sys_role_menu` VALUES (2, 1058);
-INSERT INTO `sys_role_menu` VALUES (2, 1059);
-INSERT INTO `sys_role_menu` VALUES (2, 1060);
 INSERT INTO `sys_role_menu` VALUES (2, 2001);
 INSERT INTO `sys_role_menu` VALUES (2, 2008);
 INSERT INTO `sys_role_menu` VALUES (2, 2009);
@@ -1063,8 +1262,10 @@ INSERT INTO `sys_role_menu` VALUES (2, 2022);
 INSERT INTO `sys_role_menu` VALUES (2, 2025);
 INSERT INTO `sys_role_menu` VALUES (2, 2026);
 INSERT INTO `sys_role_menu` VALUES (2, 2027);
+INSERT INTO `sys_role_menu` VALUES (2, 2029);
 INSERT INTO `sys_role_menu` VALUES (2, 2031);
 INSERT INTO `sys_role_menu` VALUES (2, 2032);
+INSERT INTO `sys_role_menu` VALUES (2, 2033);
 INSERT INTO `sys_role_menu` VALUES (2, 2034);
 INSERT INTO `sys_role_menu` VALUES (2, 2035);
 INSERT INTO `sys_role_menu` VALUES (2, 2036);
@@ -1078,7 +1279,6 @@ INSERT INTO `sys_role_menu` VALUES (100, 104);
 INSERT INTO `sys_role_menu` VALUES (100, 107);
 INSERT INTO `sys_role_menu` VALUES (100, 1000);
 INSERT INTO `sys_role_menu` VALUES (100, 1004);
-INSERT INTO `sys_role_menu` VALUES (100, 1006);
 INSERT INTO `sys_role_menu` VALUES (100, 1007);
 INSERT INTO `sys_role_menu` VALUES (100, 1011);
 INSERT INTO `sys_role_menu` VALUES (100, 1016);
@@ -1116,6 +1316,7 @@ INSERT INTO `sys_role_menu` VALUES (100, 2035);
 INSERT INTO `sys_role_menu` VALUES (100, 2036);
 INSERT INTO `sys_role_menu` VALUES (100, 2037);
 INSERT INTO `sys_role_menu` VALUES (100, 2038);
+INSERT INTO `sys_role_menu` VALUES (100, 2039);
 INSERT INTO `sys_role_menu` VALUES (101, 1);
 INSERT INTO `sys_role_menu` VALUES (101, 3);
 INSERT INTO `sys_role_menu` VALUES (101, 100);
@@ -1243,16 +1444,19 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2025-11-29 20:59:55', '2025-11-24 13:10:39', 'admin', '2025-11-24 13:10:39', '', '2025-11-29 20:59:55', '管理员');
-INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$fQBo4lL/OZ/bAYSbmqks7uKUuPvaurHkvSl91ZKK4f9xANZxbp1vG', '0', '0', '127.0.0.1', '2025-11-29 20:58:33', '2025-11-24 13:10:39', 'admin', '2025-11-24 13:10:39', 'admin', '2025-11-29 20:58:32', '测试员');
-INSERT INTO `sys_user` VALUES (100, NULL, '222222', '123', '00', '', '', '0', '', '$2a$10$07I9xZbkZlqvJY3YVe9ICuXhNyahYTYrjl9Di0cHWXf3qOiGno9iG', '0', '2', '', NULL, NULL, 'admin', '2025-11-26 13:30:54', '', NULL, NULL);
-INSERT INTO `sys_user` VALUES (101, NULL, '222', '111', '00', '', '', '0', '', '$2a$10$JYqWVvZdJ4jw6qbaTDAbyOz9tjd2bzC9yJoGPY5qC/fRn3TgpPCYS', '0', '0', '', NULL, NULL, 'admin', '2025-11-26 13:31:52', '', NULL, NULL);
-INSERT INTO `sys_user` VALUES (102, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '2', '127.0.0.1', '2025-11-28 23:46:32', '2025-11-24 13:10:39', 'admin', '2025-11-24 13:10:39', '', '2025-11-28 23:46:32', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'ccc', '00', 'ccc@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2026-01-07 15:13:18', '2025-11-24 13:10:39', 'admin', '2025-11-24 13:10:39', '', '2026-01-07 15:13:18', '管理员');
+INSERT INTO `sys_user` VALUES (2, 105, '001', '01', '00', '01@qq.com', '15666666666', '1', '', '$2a$10$fQBo4lL/OZ/bAYSbmqks7uKUuPvaurHkvSl91ZKK4f9xANZxbp1vG', '0', '0', '127.0.0.1', '2026-01-07 15:14:03', '2025-11-24 13:10:39', 'admin', '2025-11-24 13:10:39', 'admin', '2026-01-07 15:14:02', '测试员');
+INSERT INTO `sys_user` VALUES (101, 106, '002', '02', '00', '', '', '0', '', '$2a$10$JYqWVvZdJ4jw6qbaTDAbyOz9tjd2bzC9yJoGPY5qC/fRn3TgpPCYS', '0', '0', '127.0.0.1', '2026-01-07 15:16:34', NULL, 'admin', '2025-11-26 13:31:52', 'admin', '2026-01-07 15:16:34', NULL);
+INSERT INTO `sys_user` VALUES (103, 108, '003', '03', '00', '', '', '0', '', '$2a$10$pYsMnyf7VhKna875m4O6ZevfXqUatc/lk3Y7HOGHcpT554r9ppueG', '0', '0', '', NULL, NULL, 'admin', '2026-01-05 15:18:27', '', NULL, NULL);
+INSERT INTO `sys_user` VALUES (104, 101, '004', '04', '00', '', '', '0', '', '$2a$10$vLysScaK5Y//q3JUGpVt/uWPvYvYReqiqTOBWE6En6OKrOaOOyUXC', '0', '0', '', NULL, NULL, 'admin', '2026-01-05 15:18:50', '', NULL, NULL);
+INSERT INTO `sys_user` VALUES (105, 105, '005', '05', '00', '', '', '0', '', '$2a$10$2ypbk65bAlllxvi32u0v8uQdXDlaxpLld2h8pABi1mJbAWrVdVSaG', '0', '0', '', NULL, NULL, 'admin', '2026-01-05 15:19:10', '', NULL, NULL);
+INSERT INTO `sys_user` VALUES (106, 102, '006', '06', '00', '', '', '0', '', '$2a$10$MFAHzwm5qc8tnMOIvIVJ9O1/NpQhKmoGMrCsKR/Jr0ItONI9SW0Ee', '0', '0', '', NULL, NULL, 'admin', '2026-01-05 15:19:28', 'admin', '2026-01-05 15:19:36', NULL);
+INSERT INTO `sys_user` VALUES (107, 107, '007', '07', '00', '', '', '0', '', '$2a$10$f1GDgNufmOKSdOkUddEjleDRdqsV2b/CicqeG.ahfrWrjuN3i6gMi', '0', '0', '', NULL, NULL, 'admin', '2026-01-05 15:19:52', '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -1269,6 +1473,11 @@ CREATE TABLE `sys_user_post`  (
 -- ----------------------------
 INSERT INTO `sys_user_post` VALUES (1, 1);
 INSERT INTO `sys_user_post` VALUES (2, 2);
+INSERT INTO `sys_user_post` VALUES (101, 4);
+INSERT INTO `sys_user_post` VALUES (104, 3);
+INSERT INTO `sys_user_post` VALUES (105, 2);
+INSERT INTO `sys_user_post` VALUES (106, 1);
+INSERT INTO `sys_user_post` VALUES (107, 4);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -1284,6 +1493,12 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
-INSERT INTO `sys_user_role` VALUES (2, 2);
+INSERT INTO `sys_user_role` VALUES (2, 100);
+INSERT INTO `sys_user_role` VALUES (101, 2);
+INSERT INTO `sys_user_role` VALUES (103, 2);
+INSERT INTO `sys_user_role` VALUES (104, 2);
+INSERT INTO `sys_user_role` VALUES (105, 2);
+INSERT INTO `sys_user_role` VALUES (106, 2);
+INSERT INTO `sys_user_role` VALUES (107, 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
