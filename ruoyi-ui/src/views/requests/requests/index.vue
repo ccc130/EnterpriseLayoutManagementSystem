@@ -171,7 +171,6 @@
           :disabled="single"
           @click="handleApprove"
           v-hasPermi="['requests:requests:approve']"
-          v-if="!hasRole(['common', 'leader'])"
         >审核</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
@@ -229,6 +228,7 @@
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['requests:requests:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['requests:requests:remove']">删除</el-button>
+          <el-button link type="primary" icon="Check" @click="handleApprove(scope.row)" v-hasPermi="['requests:requests:approve']">审核</el-button>
         </template>
       </el-table-column>
     </el-table>
