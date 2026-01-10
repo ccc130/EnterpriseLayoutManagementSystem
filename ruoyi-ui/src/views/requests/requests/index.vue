@@ -882,12 +882,6 @@ function searchUsers(queryString) {
   })
 }
 
-// 搜索排班（已废弃，现在根据用户动态加载）
-function searchShifts(queryString) {
-  // 不再使用此函数，排班现在根据选定的用户动态加载
-  console.warn('searchShifts function is deprecated. Schedulings are now loaded dynamically based on selected users.');
-}
-
 // 搜索用户（用于查询条件）
 function searchQueryUsers(queryString) {
   if (!queryString) {

@@ -746,7 +746,7 @@ function generateDaysInMonth() {
 function processVisualData(schedulings) {
   loadAllShifts().then(() => {
     // 先获取所有员工信息
-    listEmployees({ pageSize: 10000 }).then(employeeResponse => { // 增大pageSize以确保获取所有员工
+    listEmployees({ pageSize: 10000 }).then(employeeResponse => { 
       // 获取所有员工的用户信息
       const userIds = employeeResponse.rows.map(employee => employee.userId);
       
